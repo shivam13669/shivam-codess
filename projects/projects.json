@@ -63,16 +63,6 @@
       "code": "",
       "view" :""
     }
-  },
-   {
-    "name": "WeatherAPP",
-    "desc": "Weather app built using JavaScript.",
-    "image": "weatherapp",
-    "category": "javascript",
-    "links": {
-      "code": "",
-      "view" : ""
-    }
   }
   
   
