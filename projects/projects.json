@@ -1,12 +1,12 @@
 [
   {
-    "name": "aicareerguider",
-    "desc": "AI-based career guider project in JavaScript.",
-    "image": "aicareerguider",
+    "name": "StoriesByFoot",
+    "desc": "A visually immersive travel storytelling website",
+    "image": "storiesbyfoot",
     "category": "javascript",
     "links": {
-      "code": "",
-      "view" : ""
+      "code": "https://github.com/shivam13669/webpage1mainfile/",
+      "view" : "https://storiesbyfoot.vercel.app/"
     }
   },
   {
