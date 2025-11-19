@@ -1,0 +1,79 @@
+[
+  {
+    "name": "aicareerguider",
+    "desc": "AI-based career guider project in JavaScript.",
+    "image": "aicareerguider",
+    "category": "javascript",
+    "links": {
+      "code": "",
+      "view" : ""
+    }
+  },
+  {
+    "name": "Transport-Management-System",
+    "desc": "Transport management system built with mern stack.",
+    "image": "tms",
+    "category": "mernstack",
+    "links": {
+      "code": "",
+      "view" :""
+    }
+  },
+  {
+    "name": "Weather-APP",
+    "desc": "Simple weather app built with HTML.",
+    "image": "weatherapphtml",
+    "category": "html",
+    "links": {
+      "code": "",
+      "view" :""
+    }
+  },
+
+  {
+    "name": "AI-chatcombo",
+    "desc": "AI-powered chatbot project using JavaScript.",
+    "image": "aichatcombo",
+    "category": "javascript",
+    "links": {
+      "code": "",
+      "view" : ""
+    }
+  },
+    
+   {
+    "name": "SigmaGPT",
+    "desc": "Next-gen AI assistant with advanced reasoning capabilities.",
+    "image": "sigmagpt",
+    "category": "javascript",
+    "links": {
+      "code": "",
+       "view": ""
+
+    }
+  },
+ 
+  
+  {
+    "name": "AI-Career-Coach",
+    "desc": "AI career guidance application built using JavaScript.",
+    "image": "aicareercoach",
+    "category": "javascript",
+    "links": {
+      "code": "",
+      "view" :""
+    }
+  },
+   {
+    "name": "WeatherAPP",
+    "desc": "Weather app built using JavaScript.",
+    "image": "weatherapp",
+    "category": "javascript",
+    "links": {
+      "code": "",
+      "view" : ""
+    }
+  }
+  
+  
+]
