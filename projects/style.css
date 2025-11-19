@@ -249,6 +249,7 @@ header .navbar ul li a:hover{
 }
 .work .desc p{
   font-size: 1.5rem;
+  text-transform: none;
 }
 .work .desc .btns{
   display: flex;
@@ -265,9 +266,13 @@ header .navbar ul li a:hover{
   color: #fff;
   background: rgb(12, 12, 12);
   margin-right: 2rem;
+  cursor: pointer;
 }
 .work .desc .btns .btn:hover{
   background: #310ae0f5;
+}
+.work .desc .btns .btn[href=""]{
+  cursor: pointer;
 }
 
 @media screen and (max-width: 450px) {

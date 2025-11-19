@@ -1,32 +1,32 @@
 [
   {
-    "name": "aicareerguider",
-    "desc": "AI-based career guider project in JavaScript.",
-    "image": "aicareerguider",
+    "name": "StoriesByFoot",
+    "desc": "A visually immersive travel storytelling website",
+    "image": "storiesbyfoot",
     "category": "javascript",
     "links": {
-      "code": "",
-      "view" : ""
+      "code": "https://github.com/shivam13669/webpage1mainfile/",
+      "view" : "https://storiesbyfoot.vercel.app/"
     }
   },
   {
-    "name": "Transport-Management-System",
-    "desc": "Transport management system built with mern stack.",
-    "image": "tms",
+    "name": "CRM Management",
+    "desc": "CRM Management for healthcare system.",
+    "image": "crm",
     "category": "mernstack",
     "links": {
-      "code": "",
+      "code": "https://github.com/shivam13669/CRMManagement10/",
       "view" :""
     }
   },
   {
-    "name": "Weather-APP",
-    "desc": "Simple weather app built with HTML.",
-    "image": "weatherapphtml",
+    "name": "Weather App",
+    "desc": "A dynamic Weather app",
+    "image": "weatherapp_new",
     "category": "html",
     "links": {
-      "code": "",
-      "view" :""
+      "code": "https://github.com/shivam13669/Weatherappmainfile/",
+      "view" :"https://mytrueweather.vercel.app/"
     }
   },
 
@@ -62,16 +62,6 @@
     "links": {
       "code": "",
       "view" :""
-    }
-  },
-   {
-    "name": "WeatherAPP",
-    "desc": "Weather app built using JavaScript.",
-    "image": "weatherapp",
-    "category": "javascript",
-    "links": {
-      "code": "",
-      "view" : ""
     }
   }
   

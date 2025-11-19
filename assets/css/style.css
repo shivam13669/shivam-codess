@@ -8,8 +8,11 @@
   text-decoration: none;
   outline: none;
   border: none;
-  text-transform: capitalize;
   transition: all 0.2s linear;
+}
+
+input, textarea, p, span {
+  text-transform: none;
 }
 html {
   font-size: 62.5%;
