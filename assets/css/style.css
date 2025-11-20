@@ -463,6 +463,35 @@ header .navbar ul li a:hover {
 .skills .heading span {
   color: rgb(255, 230, 0);
 }
+.skill-filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 0.8rem 1.8rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: "Poppins", sans-serif;
+}
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+.filter-btn.active-filter {
+  background: #fff;
+  color: #4a00e0;
+  border-color: #fff;
+}
 .skills .container {
   background: rgba(0, 0, 22, 0.4);
   color: #fff;
@@ -484,7 +513,11 @@ header .navbar ul li a:hover {
   border-radius: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   background: rgba(0, 0, 22, 0.9);
-  transition: 0.2s;
+  transition: 0.3s;
+  opacity: 1;
+}
+.skills .container .bar.hidden {
+  display: none;
 }
 .skills .container .bar:hover {
   box-shadow: 0 8px 10px rgba(0, 2, 68, 0.8) !important;
@@ -521,6 +554,14 @@ header .navbar ul li a:hover {
   .skills .container {
     margin-top: 5px;
     width: 100%;
+  }
+  .skill-filter-buttons {
+    margin-top: 1rem;
+    gap: 0.5rem;
+  }
+  .filter-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 1.2rem;
   }
 }
 /* skills media queries ends*/
