@@ -463,6 +463,36 @@ header .navbar ul li a:hover {
 .skills .heading span {
   color: rgb(255, 230, 0);
 }
+.skills .skill-filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem auto;
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+}
+.skills .skill-filter-btn {
+  outline: none;
+  padding: 0.8rem 2rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 3rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+}
+.skills .skill-filter-btn:hover {
+  background-color: #fff;
+  color: #4a00e0;
+  transform: translateY(-2px);
+}
+.skills .skill-filter-btn.active {
+  background-color: #fff;
+  color: #4a00e0;
+}
 .skills .container {
   background: rgba(0, 0, 22, 0.4);
   color: #fff;
