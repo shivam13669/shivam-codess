@@ -476,9 +476,9 @@ header .navbar ul li a:hover {
   font-size: 1.4rem;
   font-weight: 600;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.1);
+  background: transparent;
   color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid #fff;
   font-family: "Poppins", sans-serif;
 }
 .filter-btn.active {
