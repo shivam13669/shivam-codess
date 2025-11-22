@@ -86,7 +86,7 @@ function showSkills(skills) {
     let skillHTML = "";
     skills.forEach(skill => {
         skillHTML += `
-        <div class="bar">
+        <div class="bar" data-category="${skill.category}">
               <div class="info">
                 <img src=${skill.icon} alt="skill" />
                 <span>${skill.name}</span>
@@ -94,6 +94,34 @@ function showSkills(skills) {
             </div>`
     });
     skillsContainer.innerHTML = skillHTML;
+
+    // Add filter event listeners
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+            filterSkills(filter);
+
+            // Update active button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+}
+
+function filterSkills(category) {
+    const skillBars = document.querySelectorAll('.skills .bar');
+    skillBars.forEach(bar => {
+        if (category === 'all') {
+            bar.style.display = 'block';
+        } else {
+            if (bar.getAttribute('data-category') === category) {
+                bar.style.display = 'block';
+            } else {
+                bar.style.display = 'none';
+            }
+        }
+    });
 }
 
 function showProjects(projects) {

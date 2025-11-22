@@ -463,6 +463,33 @@ header .navbar ul li a:hover {
 .skills .heading span {
   color: rgb(255, 230, 0);
 }
+.skills-filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 0.7rem 1.8rem;
+  border-radius: 3rem;
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: "Poppins", sans-serif;
+}
+.filter-btn:hover {
+  background: #fff;
+  color: #4a00e0;
+}
+.filter-btn.active {
+  background: #fff;
+  color: #4a00e0;
+}
 .skills .container {
   background: rgba(0, 0, 22, 0.4);
   color: #fff;
@@ -508,6 +535,13 @@ header .navbar ul li a:hover {
 }
 /* skills media queries starts*/
 @media screen and (max-width: 600px) {
+  .skills-filter-buttons {
+    gap: 0.8rem;
+  }
+  .filter-btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+  }
   .skills .container {
     padding: 0;
     margin: 0;
