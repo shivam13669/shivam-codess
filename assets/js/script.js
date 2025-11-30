@@ -71,18 +71,6 @@ $(document).ready(function () {
 
 });
 
-
-
-// <!-- typed js effect starts -->
-var typed = new Typed(".typing-text", {
-    strings: ["Frontend Development", "Backend Development", "Web Designing", "Android Development", "Web Development"],
-    loop: true,
-    typeSpeed: 50,
-    backSpeed: 25,
-    backDelay: 500,
-});
-// <!-- typed js effect ends -->
-
 async function fetchData(type = "skills") {
     let response
     type === "skills" ?
