@@ -15,7 +15,7 @@
     <title>About Us | Shivam</title>
     <style>
         .about-section {
-            background: #e5ecfb;
+            background: linear-gradient(135deg, #e5ecfb 0%, #f0f4ff 100%);
             min-height: 100vh;
             padding: 3rem 9% 2rem 9%;
             margin-top: 6.5rem;
@@ -29,107 +29,357 @@
             text-align: center;
             margin-bottom: 3rem;
             padding-top: 2rem;
+            animation: slideDown 0.8s ease-out;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .about-header h1 {
             font-size: 3.5rem;
             color: #020133;
             margin-bottom: 1rem;
             font-weight: 800;
+            background: linear-gradient(135deg, #011aff, #020133);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .about-header p {
             font-size: 1.5rem;
-            color: #333;
+            color: #555;
             max-width: 700px;
             margin: 0 auto;
+            line-height: 1.6;
         }
         .about-content {
             background: #fff;
-            border-radius: 1.5rem;
+            border-radius: 2rem;
             padding: 3rem;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .section-divider {
+            height: 3px;
+            width: 60px;
+            background: linear-gradient(90deg, #011aff, #020133);
+            margin: 2rem auto;
+            border-radius: 2px;
         }
         .about-content h2 {
             font-size: 2.5rem;
-            color: #011aff;
+            background: linear-gradient(135deg, #011aff, #020133);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        .about-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #011aff, transparent);
+            border-radius: 2px;
         }
         .about-content h3 {
             font-size: 1.8rem;
             color: #020133;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
+            margin-top: 2.5rem;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .about-content h3 i {
+            color: #011aff;
+            font-size: 1.6rem;
         }
         .about-content p {
             font-size: 1.5rem;
-            color: #333;
+            color: #555;
             line-height: 1.8;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
         .about-content ul {
             margin-left: 2rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         .about-content li {
             font-size: 1.5rem;
-            color: #333;
-            line-height: 1.8;
-            margin-bottom: 0.5rem;
+            color: #555;
+            line-height: 1.9;
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+        .about-content li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #011aff;
+            font-weight: bold;
+            font-size: 1.3rem;
         }
         .highlight {
             color: #011aff;
-            font-weight: 600;
+            font-weight: 700;
+        }
+        .intro-card {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e5ecfb 100%);
+            border-left: 4px solid #011aff;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
         }
         .stats-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            margin: 2rem 0;
+            margin: 2.5rem 0;
         }
         .stat-box {
             text-align: center;
             padding: 2rem;
-            background: #f9f9f9;
-            border-radius: 1rem;
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f4ff 100%);
+            border-radius: 1.2rem;
+            border: 2px solid #e5ecfb;
             border-left: 4px solid #011aff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(1, 26, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        .stat-box:hover::before {
+            left: 100%;
+        }
+        .stat-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(1, 26, 255, 0.15);
         }
         .stat-number {
-            font-size: 2.5rem;
-            color: #011aff;
-            font-weight: 800;
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #011aff, #020133);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
             margin-bottom: 0.5rem;
         }
         .stat-label {
             font-size: 1.3rem;
-            color: #333;
+            color: #020133;
+            font-weight: 600;
         }
         .values-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            margin: 2rem 0;
+            margin: 2.5rem 0;
         }
         .value-card {
-            background: #f0f4ff;
-            padding: 2rem;
-            border-radius: 1rem;
+            background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
             text-align: center;
+            border: 2px solid #e5ecfb;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(1, 26, 255, 0.1) 0%, transparent 70%);
+            transition: all 0.3s ease;
+        }
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(1, 26, 255, 0.2);
+            border-color: #011aff;
+        }
+        .value-card:hover::before {
+            top: -20%;
+            right: -20%;
         }
         .value-card i {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: #011aff;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        .value-card:hover i {
+            transform: scale(1.15) rotate(5deg);
         }
         .value-card h4 {
             font-size: 1.6rem;
             color: #020133;
             margin-bottom: 0.8rem;
-            font-weight: 600;
+            font-weight: 700;
         }
         .value-card p {
             font-size: 1.4rem;
             color: #666;
+            line-height: 1.6;
+        }
+        .contact-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .contact-item {
+            background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border-left: 4px solid #011aff;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        .contact-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 10px 25px rgba(1, 26, 255, 0.15);
+        }
+        .contact-item i {
+            font-size: 2rem;
+            color: #011aff;
+            min-width: 50px;
+            text-align: center;
+        }
+        .contact-item-content h4 {
+            font-size: 1.2rem;
+            color: #020133;
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+        .contact-item-content p {
+            font-size: 1.4rem;
+            color: #666;
+            margin: 0;
+        }
+        .contact-item-content a {
+            color: #011aff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .contact-item-content a:hover {
+            text-decoration: underline;
+            color: #020133;
+        }
+        .journey-timeline {
+            position: relative;
+            margin: 3rem 0;
+            padding: 2rem 0;
+        }
+        .journey-item {
+            margin-bottom: 2rem;
+            padding-left: 3rem;
+            position: relative;
+        }
+        .journey-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #011aff;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px #011aff;
+        }
+        .journey-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 12px;
+            width: 2px;
+            height: 40px;
+            background: #e5ecfb;
+        }
+        .journey-item:last-child::after {
+            display: none;
+        }
+        .journey-text {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 0.8rem;
+            border-left: 3px solid #011aff;
+        }
+        .journey-text p {
+            margin: 0;
+            color: #555;
+        }
+        .cta-section {
+            background: linear-gradient(135deg, #011aff, #020133);
+            color: #fff;
+            padding: 3rem;
+            border-radius: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .cta-section h3 {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .cta-section p {
+            color: #e0e6ff;
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #fff;
+            color: #011aff;
+            padding: 1.2rem 2.5rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            font-size: 1.3rem;
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
         }
         @media (max-width: 900px) {
             .about-section {
@@ -156,8 +406,17 @@
             .about-content li {
                 font-size: 1.3rem;
             }
+            .stat-number {
+                font-size: 2rem;
+            }
+            .value-card i {
+                font-size: 2.8rem;
+            }
         }
-        @media (max-width: 450px) {
+        @media (max-width: 600px) {
+            .about-section {
+                padding: 1.5rem;
+            }
             .about-header h1 {
                 font-size: 2rem;
             }
@@ -166,9 +425,44 @@
             }
             .about-content {
                 padding: 1.5rem;
+                border-radius: 1.2rem;
             }
-            .stat-number {
-                font-size: 2rem;
+            .about-content h2 {
+                font-size: 1.6rem;
+            }
+            .about-content h3 {
+                font-size: 1.3rem;
+                gap: 0.5rem;
+            }
+            .about-content p,
+            .about-content li {
+                font-size: 1.2rem;
+            }
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .values-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .stat-box {
+                padding: 1.5rem;
+            }
+            .value-card {
+                padding: 1.8rem;
+            }
+            .intro-card {
+                padding: 1.5rem;
+            }
+            .contact-links {
+                grid-template-columns: 1fr;
+            }
+            .cta-section {
+                padding: 2rem;
+            }
+            .cta-section h3 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -198,22 +492,26 @@
 <section class="about-section">
     <div class="about-wrapper">
         <div class="about-header">
-            <h1>About Us</h1>
-            <p>Welcome to my digital space where innovation meets creativity. Let me tell you more about who I am and what I do.</p>
+            <h1>About Shivam Anand</h1>
+            <p>A passionate Full Stack Developer dedicated to creating innovative digital solutions. Let me share my journey, skills, and vision.</p>
         </div>
 
         <div class="about-content">
-            <h2>Who Am I?</h2>
-            <p>I'm <span class="highlight">Shivam Anand</span>, a passionate Full Stack Developer from Kanpur, India. With a strong foundation in web development and a keen interest in emerging technologies, I'm dedicated to creating impactful digital solutions that solve real-world problems.</p>
+            <h2><i class="fas fa-user-circle"></i> Who Am I?</h2>
             
-            <p>Currently pursuing a Bachelor of Technology in Information Technology from UIET, CSJMU Kanpur (2022-2026), I combine academic excellence with practical experience in building scalable web applications and software solutions.</p>
+            <div class="intro-card">
+                <p>I'm <span class="highlight">Shivam Anand</span>, a passionate Full Stack Developer from Kanpur, India. With a strong foundation in web development and a keen interest in emerging technologies, I'm dedicated to creating impactful digital solutions that solve real-world problems.</p>
+                
+                <p>Currently pursuing a Bachelor of Technology in Information Technology from UIET, CSJMU Kanpur (2022-2026), I combine academic excellence with practical experience in building scalable web applications and software solutions.</p>
+            </div>
 
-            <h3>My Journey</h3>
+            <h3><i class="fas fa-road"></i> My Journey</h3>
             <p>My development journey began with a curiosity about how things work on the web. Since then, I've evolved into a full stack developer with expertise in modern technologies including JavaScript, React, Node.js, and various database systems. I believe in continuous learning and staying updated with the latest industry trends.</p>
 
             <p>Through various internships and freelance projects, I've gained hands-on experience working with startups and established organizations, helping them achieve their digital transformation goals.</p>
 
-            <h3>What I Do</h3>
+            <h3><i class="fas fa-code"></i> What I Do</h3>
+            <p>I specialize in creating comprehensive digital solutions across the full technology stack:</p>
             <ul>
                 <li><strong>Web Development:</strong> Building responsive, user-friendly web applications using React, Vue.js, and modern JavaScript frameworks</li>
                 <li><strong>Backend Development:</strong> Creating robust server-side solutions with Node.js, Express, and database management systems</li>
@@ -222,7 +520,7 @@
                 <li><strong>Problem Solving:</strong> Tackling complex technical challenges with innovative approaches</li>
             </ul>
 
-            <h3>Core Values</h3>
+            <h3><i class="fas fa-heart"></i> Core Values</h3>
             <div class="values-container">
                 <div class="value-card">
                     <i class="fas fa-lightbulb"></i>
@@ -236,17 +534,17 @@
                 </div>
                 <div class="value-card">
                     <i class="fas fa-graduation-cap"></i>
-                    <h4>Learning</h4>
+                    <h4>Continuous Learning</h4>
                     <p>Committed to continuous improvement and staying ahead in technology</p>
                 </div>
                 <div class="value-card">
                     <i class="fas fa-check-circle"></i>
-                    <h4>Quality</h4>
+                    <h4>Quality Focus</h4>
                     <p>Delivering high-quality code and solutions that stand the test of time</p>
                 </div>
             </div>
 
-            <h3>Professional Experience Highlights</h3>
+            <h3><i class="fas fa-briefcase"></i> Professional Highlights</h3>
             <div class="stats-container">
                 <div class="stat-box">
                     <div class="stat-number">5+</div>
@@ -262,12 +560,38 @@
                 </div>
             </div>
 
-            <h3>Let's Connect</h3>
+            <h3><i class="fas fa-handshake"></i> Let's Connect</h3>
             <p>I'm always excited to discuss new projects, ideas, or opportunities to collaborate. Whether you have a project in mind or just want to chat about technology, feel free to reach out!</p>
             
-            <p><strong>Email:</strong> <a href="mailto:shivam19e@gmail.com" style="color: #011aff; text-decoration: none;">shivam19e@gmail.com</a></p>
-            <p><strong>Phone:</strong> <a href="tel:+918709356155" style="color: #011aff; text-decoration: none;">+91 8709356155</a></p>
-            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/shivam-anand-41b10b34b/" target="_blank" style="color: #011aff; text-decoration: none;">Connect with me on LinkedIn</a></p>
+            <div class="contact-links">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div class="contact-item-content">
+                        <h4>Email</h4>
+                        <p><a href="mailto:shivam19e@gmail.com">shivam19e@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div class="contact-item-content">
+                        <h4>Phone</h4>
+                        <p><a href="tel:+918709356155">+91 8709356155</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-linkedin"></i>
+                    <div class="contact-item-content">
+                        <h4>LinkedIn</h4>
+                        <p><a href="https://www.linkedin.com/in/shivam-anand-41b10b34b/" target="_blank">Connect with me</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h3>Ready to Work Together?</h3>
+                <p>Let's create something amazing together. Reach out to discuss your project ideas.</p>
+                <a href="/#contact" class="cta-button">Get In Touch</a>
+            </div>
         </div>
     </div>
 </section>
