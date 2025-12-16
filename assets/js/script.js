@@ -40,9 +40,12 @@ $(document).ready(function () {
         });
     });
 
-    // smooth scrolling
-    $('a[href*="#"]').on('click', function (e) {
-        const href = $(this).attr('href');
+    // smooth scrolling - use native JavaScript only
+    document.addEventListener('click', function(e) {
+        const link = e.target.closest('a[href*="#"]');
+        if (!link) return;
+
+        const href = link.getAttribute('href');
 
         // Skip if href is just "#" or doesn't contain valid anchor
         if (!href || href === '#') {
@@ -64,7 +67,6 @@ $(document).ready(function () {
             return;
         }
 
-        const selector = '#' + anchorId;
         const targetElement = document.getElementById(anchorId);
 
         // Check if target element exists on current page
