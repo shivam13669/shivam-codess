@@ -33,24 +33,33 @@ $(document).ready(function () {
     $('a[href*="#"]').on('click', function (e) {
         const href = $(this).attr('href');
 
+        // Skip if href is just "#" or doesn't contain valid anchor
+        if (!href || href === '#') {
+            return;
+        }
+
         // Extract anchor from href (e.g., "#about" from "/#about")
-        let selector;
-        if (href.startsWith('/#')) {
-            selector = '#' + href.split('/#')[1];
+        let anchorId;
+        if (href.includes('/#')) {
+            anchorId = href.split('/#')[1];
         } else if (href.startsWith('#')) {
-            selector = href;
+            anchorId = href.substring(1);
         } else {
             return;
         }
 
-        const targetElement = $(selector);
+        // Only proceed if we have a valid anchor
+        if (!anchorId) {
+            return;
+        }
+
+        const selector = '#' + anchorId;
+        const targetElement = document.getElementById(anchorId);
 
         // Check if target element exists on current page
-        if (targetElement.length) {
+        if (targetElement) {
             e.preventDefault();
-            $('html, body').animate({
-                scrollTop: targetElement.offset().top,
-            }, 500, 'linear');
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else if (href.startsWith('/#')) {
             // If link is to home anchor (e.g., /#about), redirect to home first
             e.preventDefault();
