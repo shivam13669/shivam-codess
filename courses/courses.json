@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Full Stack Development with AI (Hinglish)",
-    "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop",
+    "image": "https://cdn.builder.io/api/v1/image/assets%2F9fabf925f9b44231819b0bfba8d59dc0%2F3bda199de2e34ab985d86527ec489052?format=webp&width=800",
     "instructor": "By Expert Instructor",
     "price": "₹4,999",
     "duration": "12 Weeks",
@@ -51,7 +51,7 @@
   {
     "id": 2,
     "name": "React Advanced Mastery",
-    "image": "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=400&h=300&fit=crop",
+    "image": "https://cdn.builder.io/api/v1/image/assets%2F9fabf925f9b44231819b0bfba8d59dc0%2F7d77b94179ea4e7889ae25ab4826775d?format=webp&width=800",
     "instructor": "By React Expert",
     "price": "₹2,999",
     "duration": "8 Weeks",
@@ -96,7 +96,7 @@
   {
     "id": 3,
     "name": "Node.js Backend Development",
-    "image": "https://images.unsplash.com/photo-1627817051212-432c081dd017?w=400&h=300&fit=crop",
+    "image": "https://cdn.builder.io/api/v1/image/assets%2F9fabf925f9b44231819b0bfba8d59dc0%2Fd5f1d8aea29a4214a8a42b672c1ae229?format=webp&width=800",
     "instructor": "By Backend Specialist",
     "price": "₹3,499",
     "duration": "10 Weeks",
@@ -141,7 +141,7 @@
   {
     "id": 4,
     "name": "MongoDB Database Design",
-    "image": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400&h=300&fit=crop",
+    "image": "https://cdn.builder.io/api/v1/image/assets%2F9fabf925f9b44231819b0bfba8d59dc0%2F5bfd62789de84c9d9607fa3139748944?format=webp&width=800",
     "instructor": "By Database Expert",
     "price": "₹2,499",
     "duration": "7 Weeks",
@@ -186,7 +186,7 @@
   {
     "id": 5,
     "name": "Web Development with Tailwind CSS",
-    "image": "https://images.unsplash.com/photo-1517694712612-f8e37df4e58f?w=400&h=300&fit=crop",
+    "image": "https://cdn.builder.io/api/v1/image/assets%2F9fabf925f9b44231819b0bfba8d59dc0%2F98511a74658848c69b82cf26b146c2b2?format=webp&width=800",
     "instructor": "By CSS Specialist",
     "price": "₹1,999",
     "duration": "6 Weeks",
@@ -227,7 +227,7 @@
   {
     "id": 6,
     "name": "MERN Stack Complete Course",
-    "image": "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=400&h=300&fit=crop",
+    "image": "https://cdn.builder.io/api/v1/image/assets%2F9fabf925f9b44231819b0bfba8d59dc0%2Ff5d5d1f0ba6d44e586075332db5a2492?format=webp&width=800",
     "instructor": "By MERN Specialist",
     "price": "₹5,999",
     "duration": "16 Weeks",
