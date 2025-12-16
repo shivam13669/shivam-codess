@@ -184,14 +184,14 @@ header .navbar ul li a:hover {
 }
 
 .hero-left h1 {
-  font-size: 3.8rem;
+  font-size: 4.2rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
   line-height: 1.2;
 }
 
 .short-description {
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   margin-bottom: 2rem;
   opacity: 0.95;
   line-height: 1.7;
@@ -208,7 +208,7 @@ header .navbar ul li a:hover {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1.15rem;
+  font-size: 1.35rem;
 }
 
 .meta-item i {
@@ -218,7 +218,7 @@ header .navbar ul li a:hover {
 
 .instructor-info {
   margin: 2rem 0;
-  font-size: 1.25rem;
+  font-size: 1.45rem;
   opacity: 0.9;
 }
 
@@ -293,7 +293,7 @@ section {
 }
 
 section h2 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   color: #001a4d;
   margin-bottom: 2rem;
   font-weight: 800;
@@ -305,7 +305,7 @@ section h2 {
 }
 
 .about-course p {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   color: #555;
   line-height: 1.9;
 }
@@ -327,7 +327,7 @@ section h2 {
   padding: 1.5rem;
   border-radius: 0.8rem;
   border-left: 4px solid #2506ad;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: #333;
   box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.05);
   display: flex;
@@ -380,7 +380,7 @@ section h2 {
 }
 
 .curriculum-title {
-  font-size: 1.35rem;
+  font-size: 1.55rem;
   font-weight: 600;
   color: #001a4d;
 }
@@ -393,7 +393,7 @@ section h2 {
 .curriculum-topics li {
   padding: 0.7rem 0;
   color: #666;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -423,7 +423,7 @@ section h2 {
   padding: 1.5rem;
   border-radius: 0.8rem;
   color: #555;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   border: 1px solid #eee;
   display: flex;
   align-items: flex-start;
@@ -454,12 +454,12 @@ section h2 {
 
 .cta-box h2 {
   color: #fff;
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   margin-bottom: 1rem;
 }
 
 .cta-box p {
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   margin-bottom: 2rem;
   opacity: 0.9;
 }
