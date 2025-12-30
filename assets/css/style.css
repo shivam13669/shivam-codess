@@ -346,6 +346,8 @@ header .navbar ul li a:hover {
 /* about section starts */
 .about {
   background: rgb(255, 255, 255);
+  min-height: auto !important;
+  padding: 4rem 9%;
 }
 .about .row {
   display: flex;

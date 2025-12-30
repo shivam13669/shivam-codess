@@ -114,51 +114,10 @@ $(document).ready(function () {
 
 });
 
-async function fetchData(type = "skills") {
-    let response
-    type === "skills" ?
-        response = await fetch("skills.json")
-        :
-        response = await fetch("./projects/projects.json")
+async function fetchData(type = "projects") {
+    const response = await fetch("./projects/projects.json")
     const data = await response.json();
     return data;
-}
-
-let allSkills = [];
-
-function showSkills(skills, filterCategory = 'all') {
-    let skillsContainer = document.getElementById("skillsContainer");
-    let skillHTML = "";
-
-    let filteredSkills = skills;
-    if (filterCategory !== 'all') {
-        filteredSkills = skills.filter(skill => skill.category === filterCategory);
-    }
-
-    filteredSkills.forEach(skill => {
-        skillHTML += `
-        <div class="bar">
-              <div class="info">
-                <img src=${skill.icon} alt="skill" />
-                <span>${skill.name}</span>
-              </div>
-            </div>`
-    });
-    skillsContainer.innerHTML = skillHTML;
-}
-
-function setupSkillFilters() {
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const filterCategory = this.getAttribute('data-filter');
-
-            filterBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-
-            showSkills(allSkills, filterCategory);
-        });
-    });
 }
 
 function showProjects(projects) {
@@ -208,12 +167,6 @@ function showProjects(projects) {
     }
 
 }
-
-fetchData().then(data => {
-    allSkills = data;
-    showSkills(data);
-    setupSkillFilters();
-});
 
 fetchData("projects").then(data => {
     showProjects(data);
@@ -338,11 +291,6 @@ if (typeof ScrollReveal !== 'undefined') {
     srtop.reveal('.about .content p', { delay: 200 });
     srtop.reveal('.about .content .box-container', { delay: 200 });
     srtop.reveal('.about .content .resumebtn', { delay: 200 });
-
-
-    /* SCROLL SKILLS */
-    srtop.reveal('.skills .container', { interval: 200 });
-    srtop.reveal('.skills .container .bar', { delay: 400 });
 
     /* SCROLL COURSES */
     srtop.reveal('.courses .course-card', { interval: 200 });
