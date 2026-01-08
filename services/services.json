@@ -1,0 +1,158 @@
+[
+  {
+    "id": 1,
+    "name": "One-on-One Tutoring",
+    "category": "Personalized Learning",
+    "description": "Get personalized guidance tailored to your learning pace and specific needs. I provide comprehensive support for understanding complex concepts in web development.",
+    "icon": "fas fa-chalkboard-user",
+    "features": [
+      "Customized learning plans",
+      "Flexible scheduling",
+      "Real-time problem solving",
+      "Progress tracking"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Full Stack Development Training",
+    "category": "Technical Skills",
+    "description": "Master the complete web development stack from frontend to backend. Learn HTML, CSS, JavaScript, React, Node.js, and database management with hands-on projects.",
+    "icon": "fas fa-laptop-code",
+    "features": [
+      "Frontend frameworks",
+      "Backend development",
+      "Database design",
+      "Deployment strategies"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "React.js Advanced Mastery",
+    "category": "Frontend Development",
+    "description": "Deep dive into React.js with advanced patterns and best practices. Learn state management, hooks, performance optimization, and building scalable applications.",
+    "icon": "fas fa-react",
+    "features": [
+      "React hooks mastery",
+      "State management solutions",
+      "Component optimization",
+      "Testing & debugging"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Node.js Backend Development",
+    "category": "Backend Development",
+    "description": "Build robust backend applications using Node.js and Express.js. Learn API development, authentication, database integration, and server-side best practices.",
+    "icon": "fas fa-server",
+    "features": [
+      "REST API design",
+      "Authentication & security",
+      "Database integration",
+      "Error handling"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "AI Integration in Web Apps",
+    "category": "Advanced Technologies",
+    "description": "Learn how to integrate AI and machine learning into your web applications. Explore OpenAI APIs, chatbots, and intelligent features using modern tools.",
+    "icon": "fas fa-brain",
+    "features": [
+      "OpenAI API integration",
+      "Chatbot development",
+      "NLP fundamentals",
+      "AI-powered features"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Career Mentoring & Guidance",
+    "category": "Professional Development",
+    "description": "Get expert guidance on your tech career journey. Includes resume building, interview preparation, portfolio development, and industry insights.",
+    "icon": "fas fa-briefcase",
+    "features": [
+      "Resume optimization",
+      "Interview preparation",
+      "Portfolio building",
+      "Career path guidance"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Real-World Project Development",
+    "category": "Practical Experience",
+    "description": "Work on real-world projects to build your portfolio and gain hands-on experience. From concept to deployment, learn industry practices and technologies.",
+    "icon": "fas fa-rocket",
+    "features": [
+      "Project planning",
+      "Agile methodology",
+      "Code review & feedback",
+      "Deployment guidance"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Web Design & UI/UX Principles",
+    "category": "Design Skills",
+    "description": "Learn to create beautiful and user-friendly web interfaces. Master responsive design, modern CSS techniques, and user experience best practices.",
+    "icon": "fas fa-palette",
+    "features": [
+      "Responsive design",
+      "CSS mastery",
+      "UX principles",
+      "Modern design trends"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Database Design & Management",
+    "category": "Data & Databases",
+    "description": "Master database design and management. Learn SQL, NoSQL databases, schema design, query optimization, and data security practices.",
+    "icon": "fas fa-database",
+    "features": [
+      "SQL fundamentals",
+      "NoSQL databases",
+      "Schema design",
+      "Performance tuning"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Git & Version Control Mastery",
+    "category": "Development Tools",
+    "description": "Master Git and GitHub for professional version control. Learn collaboration workflows, branching strategies, and best practices for team development.",
+    "icon": "fas fa-code-branch",
+    "features": [
+      "Git fundamentals",
+      "GitHub collaboration",
+      "Branching strategies",
+      "Merge conflicts handling"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Performance Optimization & SEO",
+    "category": "Advanced Concepts",
+    "description": "Optimize your web applications for speed and search engines. Learn performance metrics, code splitting, lazy loading, and SEO best practices.",
+    "icon": "fas fa-chart-line",
+    "features": [
+      "Performance metrics",
+      "Code optimization",
+      "SEO fundamentals",
+      "Web vitals improvement"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Cloud Deployment & DevOps",
+    "category": "Infrastructure",
+    "description": "Learn to deploy and manage applications on cloud platforms. Covers deployment strategies, CI/CD pipelines, monitoring, and scalability best practices.",
+    "icon": "fas fa-cloud",
+    "features": [
+      "Cloud platforms (AWS, Azure, GCP)",
+      "CI/CD pipelines",
+      "Docker & containerization",
+      "Monitoring & logging"
+    ]
+  }
+]
