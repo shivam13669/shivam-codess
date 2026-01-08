@@ -60,7 +60,7 @@ function loadServices() {
     })
     .catch(error => {
       console.error('Error fetching services:', error);
-      document.querySelector('.services-container').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">Error loading services. Please try again later.</p>';
+      document.querySelector('.services-container').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666; font-size: 1.5rem;">Error loading services. Please try again later.</p>';
     });
 }
 
@@ -75,24 +75,11 @@ function displayServices(services) {
       <div class="service-card">
         <div class="service-card-header">
           <i class="${service.icon} service-card-icon"></i>
-          <div>
-            <div class="service-card-title">${service.name}</div>
-            <div class="service-card-category">${service.category}</div>
-          </div>
+          <div class="service-card-title">${service.name}</div>
+          <div class="service-card-category">${service.category}</div>
         </div>
         <div class="service-card-content">
           <p class="service-card-description">${service.description}</p>
-          
-          <div class="service-info-grid">
-            <div class="info-item">
-              <span class="info-label">Duration</span>
-              <span class="info-value">${service.duration}</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">Level</span>
-              <span class="info-value">${service.level}</span>
-            </div>
-          </div>
 
           <div class="service-highlights">
             <h4 class="highlights-label">What You'll Learn:</h4>
