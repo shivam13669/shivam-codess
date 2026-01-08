@@ -235,11 +235,11 @@ header .navbar ul li a:hover {
 }
 
 .course-card-content h3 {
-  font-size: 1.75rem;
+  font-size: 2rem;
   color: #001a4d;
   margin-bottom: 0.7rem;
   line-height: 1.4;
-  font-weight: 700;
+  font-weight: 800;
   min-height: 2.6rem;
 }
 
@@ -285,9 +285,10 @@ header .navbar ul li a:hover {
 }
 
 .course-card-price {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 2.5rem;
+  font-weight: 800;
   color: #ff6b35;
+  letter-spacing: -0.05rem;
 }
 
 .course-card-duration {
