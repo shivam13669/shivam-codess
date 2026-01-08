@@ -234,15 +234,24 @@ function showServices(services) {
     let serviceHTML = "";
 
     services.slice(0, 3).forEach(service => {
+        const highlightsHtml = service.highlights.map(highlight => `<li>${highlight}</li>`).join('');
+
         serviceHTML += `
         <div class="service-card" onclick="window.location.href='/services'" style="cursor: pointer;">
-            <i class="${service.icon} service-icon"></i>
-            <h3 class="service-title">${service.name}</h3>
-            <p class="service-category">${service.category}</p>
-            <p class="service-desc">${service.description}</p>
-            <div class="service-meta">
-                <div class="service-duration">${service.duration}</div>
-                <div class="service-level">${service.level}</div>
+            <div class="service-card-header">
+                <i class="${service.icon} service-card-icon"></i>
+                <div class="service-card-title">${service.name}</div>
+                <div class="service-card-category">${service.category}</div>
+            </div>
+            <div class="service-card-content">
+                <p class="service-card-description">${service.description}</p>
+
+                <div class="service-highlights">
+                    <h4 class="highlights-label">What You'll Learn:</h4>
+                    <ul class="highlights-list">
+                        ${highlightsHtml}
+                    </ul>
+                </div>
             </div>
         </div>`;
     });
