@@ -452,6 +452,156 @@ header .navbar ul li a:hover {
 /* about media queries ends*/
 /* about section ends */
 
+/* featured services section starts */
+.featured-services {
+  background: linear-gradient(to bottom, #f5f5f5, #f0f0f0);
+  padding: 2rem 9%;
+}
+
+.featured-services h2 {
+  color: rgb(32, 32, 32);
+  padding: 1rem;
+}
+
+.featured-services .heading span {
+  color: rgb(115, 3, 167);
+}
+
+.featured-services .box-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 2rem;
+}
+
+.featured-services .box-container .box {
+  flex: 1 1 30rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  height: 30rem;
+  background: #fff;
+  border: none;
+}
+
+.featured-services .box-container .box img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.featured-services .box-container .box .content {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 85%;
+  left: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+}
+
+.featured-services .box-container .box .content .tag {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 4.5rem;
+  width: 100%;
+  padding-left: 1rem;
+  background: #ffd900;
+}
+
+.featured-services .box-container .box .content .tag h3 {
+  font-size: 2rem;
+  color: #000;
+}
+
+.featured-services .box-container .box:hover .content {
+  top: 25%;
+}
+
+.featured-services .desc {
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.featured-services .desc p {
+  font-size: 1.5rem;
+  text-transform: none;
+  color: #333;
+}
+
+.featured-services .viewall {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.featured-services .viewall .btn {
+  position: relative;
+  line-height: 0;
+  padding: 1.6rem 3rem;
+  border-radius: 0.5em;
+  transition: 0.5s;
+  color: #fff;
+  font-weight: 700;
+  background: #2506ad;
+  box-shadow: 0px 5px 10px rgba(48, 68, 247, 0.6);
+  text-align: center;
+}
+
+.featured-services .viewall .btn span {
+  font-weight: 600;
+  font-size: 1.7rem;
+  font-family: "Nunito", sans-serif;
+}
+
+.featured-services .viewall .btn i {
+  margin-left: 0.3rem;
+  font-size: 1.5rem;
+  transition: 0.3s;
+}
+
+.featured-services .viewall .btn:hover {
+  background: #1a047e;
+}
+
+.featured-services .viewall .btn:hover i {
+  transform: translateX(5px);
+}
+
+/* featured services media queries starts */
+@media screen and (max-width: 768px) {
+  .featured-services .box-container {
+    gap: 1rem;
+  }
+
+  .featured-services .box-container .box {
+    flex: 1 1 100% !important;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .featured-services .box-container {
+    margin: 0rem;
+    gap: 1rem;
+  }
+
+  .featured-services .box-container .box {
+    flex: 1 1 100% !important;
+    max-width: 100%;
+    height: 30rem;
+  }
+}
+
+/* featured services media queries ends */
+/* featured services section ends */
+
 /* skills section starts */
 .skills {
   min-height: 90vh;
