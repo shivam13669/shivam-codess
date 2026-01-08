@@ -77,7 +77,7 @@ function displayCourses(courses) {
         <div class="course-card-content">
           <h3>${course.name}</h3>
           <p class="course-card-instructor">${course.instructor}</p>
-          
+
           <div class="course-card-rating">
             <span class="course-card-stars">${stars}</span>
             <span class="course-card-reviews">(${course.reviews} reviews)</span>
@@ -86,13 +86,15 @@ function displayCourses(courses) {
           <p class="course-card-description">${course.shortDesc}</p>
 
           <div class="course-card-footer">
-            <span class="course-card-price">${course.price}</span>
-            <span class="course-card-duration">
-              <i class="fas fa-clock"></i> ${course.duration}
-            </span>
+            <div class="course-card-price-section">
+              <span class="course-card-price">${course.price}</span>
+              <span class="course-card-duration">
+                <i class="fas fa-clock"></i> ${course.duration}
+              </span>
+            </div>
           </div>
         </div>
-        <button class="course-card-btn" onclick="event.stopPropagation(); navigateToCourseDetail(${course.id})">View Details</button>
+        <button class="course-card-btn" onclick="event.stopPropagation(); navigateToCourseDetail(${course.id})">Course Preview</button>
       </div>
     `;
   });
