@@ -85,6 +85,7 @@ function displayCourseDetail(course) {
   setElementContent('courseReviews', `${course.reviews} reviews`);
   setElementContent('courseDuration', course.duration);
   setElementContent('priceBadge', course.price);
+  setElementContent('coursePrice', course.price);
   setElementContent('courseDescription', course.description);
 
   // Learn section
