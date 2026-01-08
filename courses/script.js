@@ -92,7 +92,7 @@ function displayCourses(courses) {
             </span>
           </div>
         </div>
-        <button class="course-card-btn" onclick="event.stopPropagation(); navigateToCourseDetail(${course.id})">View Details</button>
+        <button class="course-card-btn" onclick="event.stopPropagation(); navigateToCourseDetail(${course.id})">Course Preview <b>></b></button>
       </div>
     `;
   });
