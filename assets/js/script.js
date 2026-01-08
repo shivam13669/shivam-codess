@@ -233,7 +233,10 @@ function showServices(services) {
     const servicesContainer = document.getElementById("servicesContainer");
     let serviceHTML = "";
 
-    services.slice(0, 3).forEach(service => {
+    // Display services with IDs 1, 4, and 6 (Full Stack, Video-Based Courses, Test Series)
+    const selectedServices = services.filter(service => [1, 4, 6].includes(service.id));
+
+    selectedServices.forEach(service => {
         const highlightsHtml = service.highlights.map(highlight => `<li>${highlight}</li>`).join('');
 
         serviceHTML += `
