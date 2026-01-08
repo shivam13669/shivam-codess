@@ -279,12 +279,17 @@ header .navbar ul li a:hover {
   padding: 1.2rem 0 0;
   border-top: 1px solid #eee;
   margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
 }
 
 .course-card-price-section {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  text-align: right;
 }
 
 .course-card-price {
@@ -300,6 +305,7 @@ header .navbar ul li a:hover {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  justify-content: flex-end;
 }
 
 .course-card-btn {
@@ -312,9 +318,9 @@ header .navbar ul li a:hover {
   cursor: pointer;
   font-weight: 600;
   transition: all 0.3s ease;
-  margin-top: 1.2rem;
-  width: 100%;
+  flex: 1;
   display: block;
+  white-space: nowrap;
 }
 
 .course-card-btn:hover {
