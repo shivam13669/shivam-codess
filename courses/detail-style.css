@@ -1237,4 +1237,178 @@ section h2 {
   .secure-text {
     font-size: 1.3rem;
   }
+
+  .customer-form {
+    padding: 0 1.5rem;
+  }
+
+  .form-group label {
+    font-size: 1.4rem;
+  }
+
+  .form-group input {
+    padding: 1rem;
+    font-size: 1.4rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .btn-form-back,
+  .btn-form-submit {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem;
+    font-size: 1.4rem;
+  }
+
+  .payment-status-modal {
+    margin: 1rem;
+  }
+
+  .status-header {
+    padding: 2rem 1.5rem 0;
+  }
+
+  .status-title {
+    font-size: 2rem;
+  }
+
+  .status-details {
+    margin: 1.5rem;
+    font-size: 1.3rem;
+  }
+
+  .status-actions {
+    padding: 1.5rem;
+  }
+
+  .btn-status-action {
+    padding: 1rem;
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .payment-modal,
+  .payment-status-modal {
+    max-width: 100%;
+    border-radius: 1rem;
+  }
+
+  .modal-header {
+    padding: 1.5rem 1rem 0.8rem;
+  }
+
+  .modal-header h2 {
+    font-size: 1.6rem;
+  }
+
+  .modal-header p {
+    font-size: 1.3rem;
+  }
+
+  .gateways-grid {
+    padding: 1.5rem 1rem;
+    gap: 1rem;
+  }
+
+  .gateway-card {
+    padding: 1rem;
+  }
+
+  .gateway-logo-box {
+    width: 6rem;
+    height: 6rem;
+    margin-bottom: 1rem;
+  }
+
+  .gateway-card h3 {
+    font-size: 1.5rem;
+    margin: 0.8rem 0 0.5rem;
+  }
+
+  .gateway-features {
+    font-size: 1.2rem;
+  }
+
+  .gateway-badge {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .modal-close-btn {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.3rem;
+  }
+
+  .customer-form {
+    padding: 0 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.3rem;
+  }
+
+  .form-group label {
+    font-size: 1.3rem;
+  }
+
+  .form-group input {
+    padding: 0.8rem;
+    font-size: 1.3rem;
+  }
+
+  .form-error {
+    font-size: 1.2rem;
+  }
+
+  .form-actions {
+    padding: 1.5rem 1rem;
+    gap: 0.8rem;
+  }
+
+  .btn-form-back,
+  .btn-form-submit {
+    padding: 0.9rem;
+    font-size: 1.3rem;
+  }
+
+  .status-icon {
+    width: 6rem;
+    height: 6rem;
+    font-size: 2.5rem;
+  }
+
+  .status-title {
+    font-size: 1.6rem;
+  }
+
+  .status-message {
+    font-size: 1.4rem;
+  }
+
+  .status-details {
+    margin: 1rem;
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .status-detail-item {
+    padding: 0.6rem 0;
+  }
+
+  .status-actions {
+    padding: 1.5rem 1rem;
+    gap: 1rem;
+  }
+
+  .btn-status-action {
+    padding: 0.9rem;
+    font-size: 1.3rem;
+  }
 }
