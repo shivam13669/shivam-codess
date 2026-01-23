@@ -1,0 +1,14 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="120" height="120" rx="16" fill="#1F2937"/>
+  
+  <!-- PhonePe Logo -->
+  <g transform="translate(60, 55)">
+    <!-- Purple circle background -->
+    <circle cx="0" cy="0" r="28" fill="#5F3EFF"/>
+    <!-- Phone icon -->
+    <path d="M-8 -14 L 8 -14 Q 10 -14 10 -12 L 10 12 Q 10 14 8 14 L -8 14 Q -10 14 -10 12 L -10 -12 Q -10 -14 -8 -14 M -2 10 L 2 10" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- Text -->
+    <text x="0" y="32" font-size="13" font-weight="bold" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif">PHONEPE</text>
+  </g>
+</svg>
