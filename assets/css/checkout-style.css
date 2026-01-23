@@ -737,3 +737,279 @@
     font-size: 1.3rem;
   }
 }
+
+/* ========== UNIFIED CHECKOUT FORM ========== */
+
+.unified-checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-section {
+  gap: 1.8rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #001a4d;
+  margin-bottom: 0.6rem;
+}
+
+.form-group input {
+  padding: 1.2rem;
+  font-size: 1.5rem;
+  border: 2px solid #e8e8e8;
+  border-radius: 0.8rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background: #fff;
+}
+
+.form-group input:focus {
+  border-color: #2506ad;
+  box-shadow: 0 0 0 3px rgba(37, 6, 173, 0.1);
+  outline: none;
+}
+
+.form-group input::placeholder {
+  color: #999;
+}
+
+.form-error {
+  display: block;
+  font-size: 1.3rem;
+  color: #d32f2f;
+  margin-top: 0.4rem;
+}
+
+/* Payment Method Section */
+.payment-method-section h3 {
+  font-size: 1.8rem;
+  color: #001a4d;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.gateways-grid-single {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.gateway-card-single {
+  position: relative;
+}
+
+.gateway-card-single input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.gateway-card-single input[type="radio"]:checked + .gateway-label {
+  border-color: #2506ad;
+  background: #f5f7ff;
+  box-shadow: 0 0 0 3px rgba(37, 6, 173, 0.15);
+}
+
+.gateway-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border: 2px solid #e8e8e8;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gateway-label:hover {
+  border-color: #2506ad;
+  box-shadow: 0 0.5rem 1rem rgba(37, 6, 173, 0.1);
+}
+
+.gateway-logo-single {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 2px solid #eee;
+}
+
+.gateway-info {
+  text-align: center;
+}
+
+.gateway-info h4 {
+  font-size: 1.4rem;
+  color: #001a4d;
+  margin: 0.5rem 0 0.3rem 0;
+  font-weight: 700;
+}
+
+.gateway-info p {
+  font-size: 1.2rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Submit Section */
+.submit-section {
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.btn-pay-now {
+  padding: 1.5rem 2.5rem;
+  background: linear-gradient(135deg, #2506ad, #1a0099);
+  color: #fff;
+  border: none;
+  border-radius: 0.8rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.btn-pay-now:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1.5rem rgba(37, 6, 173, 0.3);
+}
+
+.btn-pay-now:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#payAmount {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.4rem;
+  font-weight: 800;
+}
+
+.secure-text {
+  font-size: 1.3rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0;
+}
+
+.secure-text i {
+  color: #27ae60;
+  font-size: 1.5rem;
+}
+
+/* Responsive for unified form */
+@media (max-width: 768px) {
+  .gateways-grid-single {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+  }
+
+  .gateway-label {
+    padding: 1rem;
+  }
+
+  .gateway-logo-single {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .gateway-info h4 {
+    font-size: 1.2rem;
+  }
+
+  .gateway-info p {
+    font-size: 1.1rem;
+  }
+
+  .btn-pay-now {
+    padding: 1.2rem 2rem;
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .gateways-grid-single {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .gateway-label {
+    flex-direction: row;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .gateway-logo-single {
+    width: 4rem;
+    height: 4rem;
+    flex-shrink: 0;
+  }
+
+  .gateway-info {
+    text-align: left;
+  }
+
+  .gateway-info h4 {
+    font-size: 1.1rem;
+  }
+
+  .gateway-info p {
+    font-size: 1rem;
+  }
+
+  .form-group label {
+    font-size: 1.3rem;
+  }
+
+  .form-group input {
+    padding: 1rem;
+    font-size: 1.3rem;
+  }
+
+  .btn-pay-now {
+    padding: 1rem 1.5rem;
+    font-size: 1.5rem;
+    flex-direction: column;
+  }
+
+  #payAmount {
+    padding: 0.3rem 0.6rem;
+  }
+
+  .secure-text {
+    font-size: 1.2rem;
+  }
+}
