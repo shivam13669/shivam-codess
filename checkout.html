@@ -65,90 +65,89 @@
 
         <!-- Checkout Form -->
         <div class="checkout-form-container">
-            <!-- Gateway Selection View -->
-            <div id="gatewaySelectionView">
-                <h2>Choose Payment Method</h2>
-                <p class="form-subtitle">Select your preferred payment gateway</p>
+            <h2>Checkout</h2>
 
-                <div class="gateways-grid">
-                    <!-- Razorpay Gateway -->
-                    <div class="gateway-card" onclick="selectPaymentGateway('razorpay')">
-                        <div class="gateway-logo-box razorpay-bg">
-                            <img src="/assets/images/payment/razorpay-logo.svg" alt="Razorpay" class="gateway-logo-img">
-                        </div>
-                        <h3>Razorpay</h3>
-                        <p class="gateway-features">Credit/Debit Card, UPI, Wallet</p>
-                        <span class="gateway-badge">Instant Settlement</span>
-                    </div>
-
-                    <!-- PhonePe Gateway -->
-                    <div class="gateway-card" onclick="selectPaymentGateway('phonepe')">
-                        <div class="gateway-logo-box phonepe-bg">
-                            <img src="/assets/images/payment/phonepe-logo.svg" alt="PhonePe" class="gateway-logo-img">
-                        </div>
-                        <h3>PhonePe</h3>
-                        <p class="gateway-features">UPI, Postpaid, Wallet</p>
-                        <span class="gateway-badge">Fastest & Safest</span>
-                    </div>
-
-                    <!-- Cashfree Gateway -->
-                    <div class="gateway-card" onclick="selectPaymentGateway('cashfree')">
-                        <div class="gateway-logo-box cashfree-bg">
-                            <img src="/assets/images/payment/cashfree-logo.svg" alt="Cashfree" class="gateway-logo-img">
-                        </div>
-                        <h3>Cashfree</h3>
-                        <p class="gateway-features">Card, Net Banking, UPI</p>
-                        <span class="gateway-badge">100% Secure</span>
-                    </div>
-                </div>
-
-                <div class="form-footer">
-                    <p class="secure-text">
-                        <i class="fas fa-lock"></i> All payments are secure and encrypted
-                    </p>
-                </div>
-            </div>
-
-            <!-- Customer Details Form View -->
-            <div id="customerDetailsView" style="display: none;">
-                <div class="form-back-btn">
-                    <button type="button" onclick="backToGatewaySelection()" class="btn-back-text">
-                        <i class="fas fa-arrow-left"></i> Back to Payment Methods
-                    </button>
-                </div>
-
-                <h2>Enter Your Details</h2>
-                <p class="form-subtitle">We need this information to process your payment</p>
-
-                <form id="customerForm" class="customer-form">
+            <form id="checkoutForm" class="unified-checkout-form">
+                <!-- Customer Details Section -->
+                <div class="form-section customer-section">
                     <div class="form-group">
                         <label for="customerName">Full Name *</label>
-                        <input type="text" id="customerName" name="name" placeholder="Enter your full name" required>
+                        <input type="text" id="customerName" name="name" placeholder="Enter full name" required>
                         <span class="form-error" id="nameError"></span>
                     </div>
 
                     <div class="form-group">
-                        <label for="customerEmail">Email Address *</label>
-                        <input type="email" id="customerEmail" name="email" placeholder="Enter your email address" required>
+                        <label for="customerEmail">Email *</label>
+                        <input type="email" id="customerEmail" name="email" placeholder="Enter email" required>
                         <span class="form-error" id="emailError"></span>
                     </div>
 
                     <div class="form-group">
-                        <label for="customerPhone">Phone Number (10 digits) *</label>
-                        <input type="tel" id="customerPhone" name="phone" placeholder="Enter your 10-digit phone number" maxlength="10" required>
+                        <label for="customerPhone">Phone *</label>
+                        <input type="tel" id="customerPhone" name="phone" placeholder="Enter phone number" maxlength="10" required>
                         <span class="form-error" id="phoneError"></span>
                     </div>
+                </div>
 
-                    <div class="form-actions">
-                        <button type="button" class="btn-secondary" onclick="backToGatewaySelection()">
-                            <i class="fas fa-arrow-left"></i> Back
-                        </button>
-                        <button type="submit" class="btn-primary" id="submitDetailsBtn">
-                            <i class="fas fa-arrow-right"></i> Continue to Payment
-                        </button>
+                <!-- Payment Method Section -->
+                <div class="form-section payment-method-section">
+                    <h3>Choose Payment Method</h3>
+                    
+                    <div class="gateways-grid-single">
+                        <!-- Razorpay Gateway -->
+                        <div class="gateway-card-single">
+                            <input type="radio" id="razorpay" name="paymentGateway" value="razorpay" required>
+                            <label for="razorpay" class="gateway-label">
+                                <div class="gateway-logo-single razorpay-bg">
+                                    <img src="/assets/images/payment/razorpay-logo.svg" alt="Razorpay" class="gateway-logo-img">
+                                </div>
+                                <div class="gateway-info">
+                                    <h4>Razorpay</h4>
+                                    <p>Credit/Debit Card, UPI, Wallet</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- PhonePe Gateway -->
+                        <div class="gateway-card-single">
+                            <input type="radio" id="phonepe" name="paymentGateway" value="phonepe" required>
+                            <label for="phonepe" class="gateway-label">
+                                <div class="gateway-logo-single phonepe-bg">
+                                    <img src="/assets/images/payment/phonepe-logo.svg" alt="PhonePe" class="gateway-logo-img">
+                                </div>
+                                <div class="gateway-info">
+                                    <h4>PhonePe</h4>
+                                    <p>UPI, Postpaid, Wallet</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Cashfree Gateway -->
+                        <div class="gateway-card-single">
+                            <input type="radio" id="cashfree" name="paymentGateway" value="cashfree" required>
+                            <label for="cashfree" class="gateway-label">
+                                <div class="gateway-logo-single cashfree-bg">
+                                    <img src="/assets/images/payment/cashfree-logo.svg" alt="Cashfree" class="gateway-logo-img">
+                                </div>
+                                <div class="gateway-info">
+                                    <h4>Cashfree</h4>
+                                    <p>Card, Net Banking, UPI</p>
+                                </div>
+                            </label>
+                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+
+                <!-- Submit Button Section -->
+                <div class="form-section submit-section">
+                    <button type="submit" class="btn-pay-now" id="payNowBtn">
+                        Pay Now <span id="payAmount"></span>
+                    </button>
+                    <p class="secure-text">
+                        <i class="fas fa-lock"></i> Secure Checkout · SSL Encrypted
+                    </p>
+                </div>
+            </form>
         </div>
     </div>
 </section>
