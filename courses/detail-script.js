@@ -399,6 +399,8 @@ function openRazorpayCheckout(order, amount, customer) {
 
 async function verifyRazorpayPayment(orderId, paymentId, signature) {
   try {
+    showPaymentStatus('pending', 'Processing Payment', 'Please wait while we confirm your payment...');
+
     const response = await fetch('http://localhost:5000/api/payment/verify-payment', {
       method: 'POST',
       headers: {
@@ -417,11 +419,11 @@ async function verifyRazorpayPayment(orderId, paymentId, signature) {
     if (data.success) {
       showPaymentSuccess('Razorpay', data);
     } else {
-      alert('Payment verification failed: ' + data.error);
+      showPaymentStatus('error', 'Payment Verification Failed', data.error || 'Please contact support if the issue persists.');
     }
   } catch (error) {
     console.error('Verification error:', error);
-    alert('Payment verification failed');
+    showPaymentStatus('error', 'Payment Verification Failed', 'An error occurred during verification. Please contact support.');
   }
 }
 
