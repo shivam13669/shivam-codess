@@ -51,6 +51,9 @@ function displayCheckoutData(course) {
   document.getElementById('courseSummaryInstructor').textContent = course.instructor;
   document.getElementById('courseSummaryDuration').textContent = course.duration;
   document.getElementById('summaryTotal').textContent = course.price;
+
+  // Update pay button with lock icon and price
+  document.getElementById('payNowBtn').textContent = `🔒 Pay ${course.price}`;
 }
 
 function setupFormHandlers() {
