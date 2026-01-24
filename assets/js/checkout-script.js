@@ -1,36 +1,7 @@
 $(document).ready(function () {
-
-  $('#menu').click(function () {
-    $(this).toggleClass('fa-times');
-    $('.navbar').toggleClass('nav-toggle');
-  });
-
-  $(window).on('scroll load', function () {
-    $('#menu').removeClass('fa-times');
-    $('.navbar').removeClass('nav-toggle');
-
-    if (window.scrollY > 60) {
-      document.querySelector('#scroll-top').classList.add('active');
-    } else {
-      document.querySelector('#scroll-top').classList.remove('active');
-    }
-  });
-
-  // smooth scrolling
-  $('a[href*="#"]').on('click', function (e) {
-    const href = $(this).attr('href');
-    const targetElement = $(href);
-
-    if (targetElement.length) {
-      e.preventDefault();
-      $('html, body').animate({
-        scrollTop: targetElement.offset().top,
-      }, 500, 'linear');
-    }
-  });
-
   loadCheckoutData();
   setupFormHandlers();
+  setupPaymentMethodSelection();
 });
 
 function getCourseIdFromUrl() {
@@ -79,9 +50,7 @@ function displayCheckoutData(course) {
   document.getElementById('courseSummaryName').textContent = course.name;
   document.getElementById('courseSummaryInstructor').textContent = course.instructor;
   document.getElementById('courseSummaryDuration').textContent = course.duration;
-  document.getElementById('summaryPrice').textContent = course.price;
   document.getElementById('summaryTotal').textContent = course.price;
-  document.getElementById('payAmount').textContent = course.price;
 }
 
 function setupFormHandlers() {
@@ -92,6 +61,20 @@ function setupFormHandlers() {
       await handleCheckoutSubmit();
     });
   }
+}
+
+function setupPaymentMethodSelection() {
+  const methods = document.querySelectorAll('.method');
+  methods.forEach(method => {
+    method.addEventListener('click', function() {
+      // Remove active class from all methods
+      methods.forEach(m => m.classList.remove('active'));
+      // Add active class to clicked method
+      this.classList.add('active');
+      // Store selected gateway
+      window.selectedGateway = this.getAttribute('data-gateway');
+    });
+  });
 }
 
 async function handleCheckoutSubmit() {
@@ -109,7 +92,7 @@ async function handleCheckoutSubmit() {
   const name = document.getElementById('customerName').value.trim();
   const email = document.getElementById('customerEmail').value.trim();
   const phone = document.getElementById('customerPhone').value.trim();
-  const gateway = document.querySelector('input[name="paymentGateway"]:checked').value;
+  const gateway = window.selectedGateway;
 
   const customerDetails = { name, email, phone };
 
@@ -158,43 +141,41 @@ async function handleCheckoutSubmit() {
 }
 
 function validateCheckoutForm() {
-  clearFormErrors();
   const name = document.getElementById('customerName').value.trim();
   const email = document.getElementById('customerEmail').value.trim();
   const phone = document.getElementById('customerPhone').value.trim();
-  const gateway = document.querySelector('input[name="paymentGateway"]:checked');
+  const gateway = window.selectedGateway;
   
   let isValid = true;
+  let errorMessage = '';
 
   if (!name || name.length < 3) {
-    document.getElementById('nameError').textContent = 'Please enter a valid name (minimum 3 characters)';
+    errorMessage += 'Please enter a valid name (minimum 3 characters)\n';
     isValid = false;
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!email || !emailRegex.test(email)) {
-    document.getElementById('emailError').textContent = 'Please enter a valid email address';
+    errorMessage += 'Please enter a valid email address\n';
     isValid = false;
   }
 
   const phoneRegex = /^[6-9]\d{9}$/;
   if (!phone || !phoneRegex.test(phone)) {
-    document.getElementById('phoneError').textContent = 'Please enter a valid 10-digit phone number';
+    errorMessage += 'Please enter a valid 10-digit phone number\n';
     isValid = false;
   }
 
   if (!gateway) {
-    showPaymentStatus('error', 'Payment Method Required', 'Please select a payment method');
+    errorMessage += 'Please select a payment method\n';
     isValid = false;
   }
 
-  return isValid;
-}
+  if (!isValid) {
+    alert(errorMessage.trim());
+  }
 
-function clearFormErrors() {
-  document.getElementById('nameError').textContent = '';
-  document.getElementById('emailError').textContent = '';
-  document.getElementById('phoneError').textContent = '';
+  return isValid;
 }
 
 function handleGatewayPayment(gateway, order, amount, customer) {
@@ -243,11 +224,11 @@ function openRazorpayCheckout(order, amount, customer) {
       contact: customer.phone
     },
     theme: {
-      color: '#2b3dda'
+      color: '#6366f1'
     },
     modal: {
       ondismiss: function() {
-        console.log('Payment modal closed');
+        closePaymentStatus();
       }
     }
   };
@@ -258,7 +239,7 @@ function openRazorpayCheckout(order, amount, customer) {
 
 async function verifyRazorpayPayment(orderId, paymentId, signature) {
   try {
-    showPaymentStatus('pending', 'Processing Payment', 'Please wait while we confirm your payment...');
+    showPaymentStatus('pending', 'Verifying Payment', 'Please wait while we confirm your payment...');
 
     const response = await fetch('http://localhost:5000/api/payment/verify-payment', {
       method: 'POST',
@@ -319,7 +300,7 @@ function showPaymentStatus(type, title, message, details = null) {
   const overlay = document.getElementById('paymentStatusOverlay');
   const statusContent = document.getElementById('statusContent');
 
-  let html = '<div class="status-header">';
+  let html = '';
 
   if (type === 'success') {
     html += '<div class="status-icon success">✓</div>';
@@ -339,7 +320,7 @@ function showPaymentStatus(type, title, message, details = null) {
     Object.entries(details).forEach(([key, value]) => {
       html += `
         <div class="status-detail-item">
-          <span class="status-detail-label">${key}:</span>
+          <span class="status-detail-label">${key}</span>
           <span class="status-detail-value">${value}</span>
         </div>
       `;
@@ -351,24 +332,22 @@ function showPaymentStatus(type, title, message, details = null) {
 
   if (type === 'success') {
     html += `
-      <button class="btn-status-action btn-status-primary" onclick="window.location.href='/courses'">
+      <button class="btn-status btn-status-primary" onclick="window.location.href='/courses'">
         Back to Courses
       </button>
     `;
   } else if (type === 'error') {
     html += `
-      <button class="btn-status-action btn-status-primary" onclick="closePaymentStatus()">
+      <button class="btn-status btn-status-primary" onclick="closePaymentStatus()">
         Try Again
       </button>
-      <button class="btn-status-action btn-status-secondary" onclick="window.location.href='/courses'">
+      <button class="btn-status btn-status-secondary" onclick="window.location.href='/courses'">
         Back to Courses
       </button>
     `;
-  } else if (type === 'pending') {
-    html += '<p style="color: #666; font-size: 1.4rem; margin-top: 1rem;">This may take a few moments...</p>';
   }
 
-  html += '</div></div>';
+  html += '</div>';
 
   statusContent.innerHTML = html;
   overlay.classList.add('active');
@@ -396,21 +375,23 @@ function showPaymentSuccess(gateway, paymentData) {
   }, 3000);
 }
 
-// Disable developer mode
-document.onkeydown = function (e) {
-  if (e.keyCode == 123) {
-    return false;
+// Spinner animation for pending status
+const style = document.createElement('style');
+style.textContent = `
+  .status-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #e5e7eb;
+    border-top-color: #6366f1;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 20px;
   }
-  if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-    return false;
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
   }
-  if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-    return false;
-  }
-  if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-    return false;
-  }
-  if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-    return false;
-  }
-}
+`;
+document.head.appendChild(style);
