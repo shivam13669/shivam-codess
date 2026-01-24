@@ -17,20 +17,23 @@
         <div class="checkout-left">
             <h2>Checkout</h2>
 
-            <form id="checkoutForm">
+            <form id="checkoutForm" novalidate>
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input type="text" id="customerName" name="name" placeholder="Enter your name" required>
+                    <input type="text" id="customerName" name="name" placeholder="Enter your name">
+                    <span class="error-message" id="nameError"></span>
                 </div>
 
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" id="customerEmail" name="email" placeholder="Enter your email" required>
+                    <input type="email" id="customerEmail" name="email" placeholder="Enter your email">
+                    <span class="error-message" id="emailError"></span>
                 </div>
 
                 <div class="form-group">
                     <label>Phone Number</label>
-                    <input type="tel" id="customerPhone" name="phone" placeholder="Enter your phone" maxlength="10" required>
+                    <input type="text" id="customerPhone" name="phone" placeholder="Enter your phone" maxlength="10">
+                    <span class="error-message" id="phoneError"></span>
                 </div>
 
                 <div class="section">
@@ -52,9 +55,13 @@
                             </div>
                         </div>
                     </div>
+                    <span class="error-message" id="gatewayError"></span>
                 </div>
 
-                <button type="submit" class="pay-btn" id="payNowBtn">Proceed to Pay</button>
+                <button type="submit" class="pay-btn pay-btn-disabled" id="payNowBtn" disabled>
+                    <span class="btn-text">Proceed to Pay</span>
+                    <span class="btn-price" id="btnPrice"></span>
+                </button>
             </form>
         </div>
 
