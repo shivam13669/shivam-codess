@@ -74,8 +74,156 @@ function setupPaymentMethodSelection() {
       this.classList.add('active');
       // Store selected gateway
       window.selectedGateway = this.getAttribute('data-gateway');
+      // Clear gateway error and validate
+      clearError('gatewayError');
+      validateAllFields();
     });
   });
+}
+
+function setupCustomValidation() {
+  const nameInput = document.getElementById('customerName');
+  const emailInput = document.getElementById('customerEmail');
+  const phoneInput = document.getElementById('customerPhone');
+
+  // Real-time validation
+  nameInput.addEventListener('input', function() {
+    validateName();
+    validateAllFields();
+  });
+
+  emailInput.addEventListener('input', function() {
+    validateEmail();
+    validateAllFields();
+  });
+
+  phoneInput.addEventListener('input', function() {
+    // Allow only numeric digits
+    this.value = this.value.replace(/[^0-9]/g, '');
+    validatePhone();
+    validateAllFields();
+  });
+
+  phoneInput.addEventListener('keypress', function(e) {
+    // Prevent non-numeric input
+    if (!/[0-9]/.test(e.key)) {
+      e.preventDefault();
+    }
+  });
+}
+
+function validateName() {
+  const nameInput = document.getElementById('customerName');
+  const nameError = document.getElementById('nameError');
+  const name = nameInput.value.trim();
+
+  if (!name) {
+    showError('nameError', 'Full name is required');
+    nameInput.classList.add('is-invalid');
+    return false;
+  } else if (name.length < 3) {
+    showError('nameError', 'Name must be at least 3 characters');
+    nameInput.classList.add('is-invalid');
+    return false;
+  } else {
+    clearError('nameError');
+    nameInput.classList.remove('is-invalid');
+    return true;
+  }
+}
+
+function validateEmail() {
+  const emailInput = document.getElementById('customerEmail');
+  const emailError = document.getElementById('emailError');
+  const email = emailInput.value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!email) {
+    showError('emailError', 'Email is required');
+    emailInput.classList.add('is-invalid');
+    return false;
+  } else if (!emailRegex.test(email)) {
+    showError('emailError', 'Please enter a valid email address');
+    emailInput.classList.add('is-invalid');
+    return false;
+  } else {
+    clearError('emailError');
+    emailInput.classList.remove('is-invalid');
+    return true;
+  }
+}
+
+function validatePhone() {
+  const phoneInput = document.getElementById('customerPhone');
+  const phoneError = document.getElementById('phoneError');
+  const phone = phoneInput.value.trim();
+
+  if (!phone) {
+    showError('phoneError', 'Phone number is required');
+    phoneInput.classList.add('is-invalid');
+    return false;
+  } else if (phone.length < 10) {
+    showError('phoneError', `Phone number must be 10 digits (${phone.length}/10)`);
+    phoneInput.classList.add('is-invalid');
+    return false;
+  } else if (phone.length === 10) {
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(phone)) {
+      showError('phoneError', 'Phone number must start with 6, 7, 8, or 9');
+      phoneInput.classList.add('is-invalid');
+      return false;
+    } else {
+      clearError('phoneError');
+      phoneInput.classList.remove('is-invalid');
+      return true;
+    }
+  }
+  return false;
+}
+
+function validateGateway() {
+  const gateway = window.selectedGateway;
+  const gatewayError = document.getElementById('gatewayError');
+
+  if (!gateway) {
+    showError('gatewayError', 'Please select a payment gateway');
+    return false;
+  } else {
+    clearError('gatewayError');
+    return true;
+  }
+}
+
+function validateAllFields() {
+  const isNameValid = validateName();
+  const isEmailValid = validateEmail();
+  const isPhoneValid = validatePhone();
+  const isGatewayValid = validateGateway();
+
+  const payBtn = document.getElementById('payNowBtn');
+  const isAllValid = isNameValid && isEmailValid && isPhoneValid && isGatewayValid;
+
+  if (isAllValid) {
+    payBtn.disabled = false;
+    payBtn.classList.remove('pay-btn-disabled');
+  } else {
+    payBtn.disabled = true;
+    payBtn.classList.add('pay-btn-disabled');
+  }
+}
+
+function showError(errorId, message) {
+  const errorElement = document.getElementById(errorId);
+  if (errorElement) {
+    errorElement.textContent = message;
+  }
+}
+
+function clearError(errorId) {
+  const errorElement = document.getElementById(errorId);
+  if (errorElement) {
+    errorElement.textContent = '';
+  }
 }
 
 async function handleCheckoutSubmit() {
