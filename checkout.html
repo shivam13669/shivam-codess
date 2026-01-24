@@ -2,156 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/courses/detail-style.css">
-    <link rel="stylesheet" href="/assets/css/checkout-style.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link id='favicon' rel="shortcut icon" href="https://cdn.builder.io/api/v1/image/assets%2F9fabf925f9b44231819b0bfba8d59dc0%2F6a7b9c70a34745d3a7bf25250d843f35?format=webp&width=800" type="image/x-png">
     <title>Checkout | Design Byte</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/checkout-style.css">
+    <link id='favicon' rel="shortcut icon" href="https://cdn.builder.io/api/v1/image/assets%2F9fabf925f9b44231819b0bfba8d59dc0%2F6a7b9c70a34745d3a7bf25250d843f35?format=webp&width=800" type="image/x-png">
 </head>
+
 <body>
 
-<!-- navbar starts -->
-<header>
-    <a href="/" class="logo"><i class="fab fa-node-js"></i> Design Byte</a>
-    <div id="menu" class="fas fa-bars"></div>
-    <nav class="navbar">
-        <ul>
-        <li><a href="/#home">Home</a></li>
-        <li><a href="/about-us.html">About</a></li>
-        <li><a href="/#work">Work</a></li>
-        <li><a href="/#experience">Experience</a></li>
-        <li><a href="/services">Services</a></li>
-        <li><a href="/courses">Courses</a></li>
-        <li><a href="/#contact">Contact</a></li>
-        <li><a href="/login.html" class="login-link">Login</a></li>
-        </ul>
-    </nav>
-</header>
-<!-- navbar ends -->
-
-<!-- checkout section starts -->
-<section class="checkout-section">
-    <div class="checkout-container">
-        <!-- Order Summary -->
-        <div class="checkout-summary">
-            <h2>Order Summary</h2>
-            <div class="summary-content">
-                <div class="course-summary-item">
-                    <img id="courseSummaryImage" src="" alt="Course" class="course-summary-image">
-                    <div class="course-summary-details">
-                        <h3 id="courseSummaryName"></h3>
-                        <p id="courseSummaryInstructor"></p>
-                        <div class="course-summary-meta">
-                            <span id="courseSummaryDuration"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="summary-divider"></div>
-                <div class="summary-pricing">
-                    <div class="pricing-row">
-                        <span>Course Price</span>
-                        <span id="summaryPrice"></span>
-                    </div>
-                    <div class="pricing-row total">
-                        <span>Total Amount</span>
-                        <span id="summaryTotal"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Checkout Form -->
-        <div class="checkout-form-container">
+<div class="checkout-wrapper">
+    <div class="checkout">
+        <!-- LEFT SECTION -->
+        <div class="checkout-left">
             <h2>Checkout</h2>
 
-            <form id="checkoutForm" class="unified-checkout-form">
-                <!-- Customer Details Section -->
-                <div class="form-section customer-section">
-                    <div class="form-group">
-                        <label for="customerName">Full Name *</label>
-                        <input type="text" id="customerName" name="name" placeholder="Enter full name" required>
-                        <span class="form-error" id="nameError"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="customerEmail">Email *</label>
-                        <input type="email" id="customerEmail" name="email" placeholder="Enter email" required>
-                        <span class="form-error" id="emailError"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="customerPhone">Phone *</label>
-                        <input type="tel" id="customerPhone" name="phone" placeholder="Enter phone number" maxlength="10" required>
-                        <span class="form-error" id="phoneError"></span>
-                    </div>
+            <form id="checkoutForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="customerName" name="name" placeholder="Enter your name" required>
                 </div>
 
-                <!-- Payment Method Section -->
-                <div class="form-section payment-method-section">
-                    <h3>Choose Payment Method</h3>
-                    
-                    <div class="gateways-grid-single">
-                        <!-- Razorpay Gateway -->
-                        <div class="gateway-card-single">
-                            <input type="radio" id="razorpay" name="paymentGateway" value="razorpay" required>
-                            <label for="razorpay" class="gateway-label">
-                                <div class="gateway-logo-single razorpay-bg">
-                                    <img src="/assets/images/payment/razorpay-logo.svg" alt="Razorpay" class="gateway-logo-img">
-                                </div>
-                                <div class="gateway-info">
-                                    <h4>Razorpay</h4>
-                                    <p>Credit/Debit Card, UPI, Wallet</p>
-                                </div>
-                            </label>
-                        </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="customerEmail" name="email" placeholder="Enter your email" required>
+                </div>
 
-                        <!-- PhonePe Gateway -->
-                        <div class="gateway-card-single">
-                            <input type="radio" id="phonepe" name="paymentGateway" value="phonepe" required>
-                            <label for="phonepe" class="gateway-label">
-                                <div class="gateway-logo-single phonepe-bg">
-                                    <img src="/assets/images/payment/phonepe-logo.svg" alt="PhonePe" class="gateway-logo-img">
-                                </div>
-                                <div class="gateway-info">
-                                    <h4>PhonePe</h4>
-                                    <p>UPI, Postpaid, Wallet</p>
-                                </div>
-                            </label>
-                        </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="customerPhone" name="phone" placeholder="Enter your phone" maxlength="10" required>
+                </div>
 
-                        <!-- Cashfree Gateway -->
-                        <div class="gateway-card-single">
-                            <input type="radio" id="cashfree" name="paymentGateway" value="cashfree" required>
-                            <label for="cashfree" class="gateway-label">
-                                <div class="gateway-logo-single cashfree-bg">
-                                    <img src="/assets/images/payment/cashfree-logo.svg" alt="Cashfree" class="gateway-logo-img">
-                                </div>
-                                <div class="gateway-info">
-                                    <h4>Cashfree</h4>
-                                    <p>Card, Net Banking, UPI</p>
-                                </div>
-                            </label>
+                <div class="section">
+                    <label>Select Payment Method</label>
+                    <div class="methods">
+                        <div class="method" data-pay="razorpay" data-gateway="razorpay">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Razorpay_logo.svg" alt="Razorpay">
+                        </div>
+                        <div class="method" data-pay="phonepe" data-gateway="phonepe">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/PhonePe_Logo.svg" alt="PhonePe">
+                        </div>
+                        <div class="method" data-pay="cashfree" data-gateway="cashfree">
+                            <img src="https://cashfree.com/assets/images/logo.svg" alt="Cashfree">
                         </div>
                     </div>
                 </div>
 
-                <!-- Submit Button Section -->
-                <div class="form-section submit-section">
-                    <button type="submit" class="btn-pay-now" id="payNowBtn">
-                        Pay Now <span id="payAmount"></span>
-                    </button>
-                    <p class="secure-text">
-                        <i class="fas fa-lock"></i> Secure Checkout · SSL Encrypted
-                    </p>
-                </div>
+                <button type="submit" class="pay-btn" id="payNowBtn">Proceed to Pay</button>
             </form>
         </div>
+
+        <!-- RIGHT SECTION -->
+        <div class="checkout-right">
+            <h3>Order Summary</h3>
+
+            <div class="course-summary">
+                <img id="courseSummaryImage" src="" alt="Course">
+                <div class="course-info">
+                    <h4 id="courseSummaryName"></h4>
+                    <div class="author" id="courseSummaryInstructor"></div>
+                    <div class="duration" id="courseSummaryDuration"></div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="price-section">
+                <div class="total">
+                    <span>Total Amount</span>
+                    <span id="summaryTotal"></span>
+                </div>
+            </div>
+
+            <div class="secure">
+                🔒 Secure checkout • Encrypted payments
+            </div>
+        </div>
     </div>
-</section>
-<!-- checkout section ends -->
+</div>
 
 <!-- Payment Status Modal -->
 <div class="payment-status-overlay" id="paymentStatusOverlay">
@@ -162,18 +90,7 @@
     </div>
 </div>
 
-<!-- scroll top btn -->
-<a href="#checkout-section" class="fas fa-angle-up" id="scroll-top"></a>
-
-<!-- ==== ALL MAJOR JAVASCRIPT CDNS STARTS ==== -->
-<!-- jquery cdn -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<!-- scroll reveal anim -->
-<script src="https://unpkg.com/scrollreveal"></script>
-
-<!-- ==== ALL MAJOR JAVASCRIPT CDNS ENDS ==== -->
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/assets/js/checkout-script.js"></script>
 
 </body>
