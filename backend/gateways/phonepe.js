@@ -35,10 +35,19 @@ const getAccessToken = async () => {
 
     // Validate credentials exist
     if (!PHONEPE_CLIENT_ID || !PHONEPE_CLIENT_SECRET) {
-      throw new Error(
-        'PhonePe credentials not configured. Set PHONEPE_CLIENT_ID and PHONEPE_CLIENT_SECRET in .env'
-      );
+      const error = 'PhonePe credentials not configured. Set PHONEPE_CLIENT_ID and PHONEPE_CLIENT_SECRET in .env';
+      logger.error('PhonePe credentials check', {
+        has_client_id: !!PHONEPE_CLIENT_ID,
+        has_client_secret: !!PHONEPE_CLIENT_SECRET,
+        error: error
+      });
+      throw new Error(error);
     }
+
+    logger.info('PhonePe credentials validated', {
+      has_client_id: !!PHONEPE_CLIENT_ID,
+      has_client_secret: !!PHONEPE_CLIENT_SECRET
+    });
 
     // Request new token using form-body (not Basic Auth)
     const response = await axios.post(
@@ -80,13 +89,14 @@ const getAccessToken = async () => {
       status: error.response?.status,
       data: error.response?.data,
       headers: error.response?.headers,
+      config: {
+        url: error.config?.url,
+        method: error.config?.method,
+        headers: error.config?.headers
+      }
     };
-    logger.error('Failed to generate PhonePe OAuth token', JSON.stringify(errorDetails, null, 2));
-    throw {
-      message: 'Failed to authenticate with PhonePe',
-      error: error.message,
-      details: errorDetails,
-    };
+    logger.error('Failed to generate PhonePe OAuth token', errorDetails);
+    throw new Error(`PhonePe Auth Error: ${error.response?.data?.error || error.message} (Status: ${error.response?.status || 'Unknown'})`);
   }
 };
 
@@ -112,12 +122,21 @@ export const createPhonePeOrder = async (params) => {
     const amountInPaise = Math.round(amount * 100);
 
     // Minimal payload as per PhonePe OAuth specification
+    const redirectUrl = `${process.env.FRONTEND_URL}/payment-success`;
     const payload = {
       merchantOrderId: orderId,
       amount: amountInPaise,
       currency: 'INR',
-      redirectUrl: `${process.env.FRONTEND_URL}/payment-success`,
+      redirectUrl: redirectUrl,
     };
+
+    logger.info('PhonePe API request details', {
+      endpoint: 'https://api.phonepe.com/apis/hermes/pg/v1/pay',
+      method: 'POST',
+      payload: payload,
+      redirectUrl: redirectUrl,
+      clientVersion: PHONEPE_CLIENT_VERSION
+    });
 
     // Make API request with Bearer token
     const response = await axios.post(
