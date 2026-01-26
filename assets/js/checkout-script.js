@@ -1,3 +1,14 @@
+// API Configuration
+const API_BASE_URL = (() => {
+  const hostname = window.location.hostname;
+  // Use localhost for local development
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return 'http://localhost:5000';
+  }
+  // Use render backend for all other environments (production, Builder.io preview, etc)
+  return 'https://shivam-codessite.onrender.com';
+})();
+
 $(document).ready(function () {
   loadCheckoutData();
   setupFormHandlers();
@@ -135,7 +146,7 @@ async function handleCheckoutSubmit() {
     localStorage.setItem('current_customer_email', email);
 
     // Call backend API to create order
-    const response = await fetch('http://localhost:5000/api/payment/create-order', {
+    const response = await fetch(`${API_BASE_URL}/api/payment/create-order`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -316,7 +327,7 @@ async function verifyRazorpayPayment(orderId, paymentId, signature) {
   try {
     showPaymentStatus('pending', 'Verifying Payment', 'Please wait while we confirm your payment...');
 
-    const response = await fetch('http://localhost:5000/api/payment/verify-payment', {
+    const response = await fetch(`${API_BASE_URL}/api/payment/verify-payment`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
