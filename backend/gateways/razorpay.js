@@ -33,6 +33,10 @@ export const createRazorpayOrder = async (params) => {
 
     logger.info('Creating Razorpay order', { amount, customer: customer.email });
 
+    // Verify Razorpay client is initialized
+    const client = getRazorpayClient();
+    logger.info('Razorpay client initialized successfully');
+
     // Amount in paise (multiply by 100 for INR)
     const orderAmount = Math.round(amount * 100);
 
@@ -49,7 +53,13 @@ export const createRazorpayOrder = async (params) => {
       },
     };
 
-    const order = await getRazorpayClient().orders.create(orderData);
+    logger.info('Calling Razorpay API with order data', {
+      amount: orderAmount,
+      currency,
+      receipt: orderData.receipt
+    });
+
+    const order = await client.orders.create(orderData);
 
     logger.info('Razorpay order created successfully', { orderId: order.id });
 
@@ -63,12 +73,15 @@ export const createRazorpayOrder = async (params) => {
       razorpayKey: process.env.RAZORPAY_KEY_ID,
     };
   } catch (error) {
-    logger.error('Razorpay order creation failed', { error: error.message, stack: error.stack });
-    throw {
-      message: 'Failed to create Razorpay order',
+    logger.error('Razorpay order creation failed', {
       error: error.message,
-      details: error.response?.data || error,
-    };
+      statusCode: error.statusCode,
+      status: error.status,
+      stack: error.stack,
+      response: error.response?.data,
+      details: JSON.stringify(error)
+    });
+    throw new Error(`Razorpay API Error: ${error.message} (Status: ${error.statusCode || error.status || 'Unknown'})`);
   }
 };
 

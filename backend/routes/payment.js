@@ -29,19 +29,30 @@ router.post('/create-order', async (req, res) => {
   try {
     const { amount, gateway, customer, description } = req.body;
 
+    logger.info('Received create-order request', {
+      amount,
+      gateway,
+      customer: customer?.email,
+      description,
+      bodyKeys: Object.keys(req.body)
+    });
+
     // Validate input
     const amountValidation = validators.validateAmount(amount);
     if (!amountValidation.valid) {
+      logger.warn('Amount validation failed', { amount, error: amountValidation.error });
       return res.status(400).json({ error: amountValidation.error });
     }
 
     const gatewayValidation = validators.validateGateway(gateway);
     if (!gatewayValidation.valid) {
+      logger.warn('Gateway validation failed', { gateway, error: gatewayValidation.error });
       return res.status(400).json({ error: gatewayValidation.error });
     }
 
     const customerValidation = validators.validateCustomer(customer);
     if (!customerValidation.valid) {
+      logger.warn('Customer validation failed', { customer, error: customerValidation.error });
       return res.status(400).json({ error: customerValidation.error });
     }
 
@@ -89,11 +100,12 @@ router.post('/create-order', async (req, res) => {
       order,
     });
   } catch (error) {
-    logger.error('Error creating order', { error: error.message });
+    logger.error('Error creating order', { error: error.message, stack: error.stack });
     res.status(500).json({
       success: false,
       error: error.message || 'Failed to create order',
-      ...(process.env.NODE_ENV === 'development' && { details: error }),
+      details: error.message,
+      ...(process.env.NODE_ENV === 'development' && { stack: error.stack }),
     });
   }
 });

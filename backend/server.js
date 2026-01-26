@@ -63,6 +63,20 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Diagnostic endpoint to check Razorpay setup
+app.get('/health/razorpay', (req, res) => {
+  const hasKeyId = !!process.env.RAZORPAY_KEY_ID;
+  const hasKeySecret = !!process.env.RAZORPAY_KEY_SECRET;
+
+  res.status(200).json({
+    razorpay_configured: hasKeyId && hasKeySecret,
+    razorpay_key_id: hasKeyId ? 'SET' : 'MISSING',
+    razorpay_key_secret: hasKeySecret ? 'SET' : 'MISSING',
+    frontend_url: process.env.FRONTEND_URL || 'NOT SET',
+    environment: NODE_ENV,
+  });
+});
+
 // Payment routes
 app.use('/api/payment', paymentRoutes);
 

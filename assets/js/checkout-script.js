@@ -103,6 +103,13 @@ function handlePhoneInput(e) {
 
 function setupPaymentMethodSelection() {
   const methods = document.querySelectorAll('.method');
+
+  // Select first method (Razorpay) by default
+  if (methods.length > 0) {
+    methods[0].classList.add('active');
+    window.selectedGateway = methods[0].getAttribute('data-gateway');
+  }
+
   methods.forEach(method => {
     method.addEventListener('click', function() {
       // Remove active class from all methods
@@ -111,6 +118,7 @@ function setupPaymentMethodSelection() {
       this.classList.add('active');
       // Store selected gateway
       window.selectedGateway = this.getAttribute('data-gateway');
+      console.log('Selected gateway:', window.selectedGateway);
     });
   });
 }
@@ -131,6 +139,12 @@ async function handleCheckoutSubmit() {
   const email = document.getElementById('customerEmail').value.trim();
   const phone = document.getElementById('customerPhone').value.trim();
   const gateway = window.selectedGateway;
+
+  // Check if gateway is selected
+  if (!gateway) {
+    showPaymentStatus('error', 'Payment Method Required', 'Please select a payment method');
+    return;
+  }
 
   const customerDetails = { name, email, phone };
 
