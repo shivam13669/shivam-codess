@@ -151,11 +151,7 @@ export const createPhonePeOrder = async (params) => {
       }
     };
     logger.error('PhonePe order creation failed', JSON.stringify(errorDetails, null, 2));
-    throw {
-      message: 'Failed to create PhonePe order',
-      error: error.message,
-      details: errorDetails,
-    };
+    throw new Error(`PhonePe API Error: ${error.message || JSON.stringify(error.response?.data)} (Status: ${error.response?.status || 'Unknown'})`);
   }
 };
 
