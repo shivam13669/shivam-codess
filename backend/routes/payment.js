@@ -96,52 +96,40 @@ export const createPhonePeOrder = async (params) => {
   try {
     const { amount, orderId, customer } = params;
 
-    logger.info('Creating PhonePe order', {
-      amount,
-      orderId,
-    });
-
     const accessToken = await getAccessToken();
 
-    const amountInPaise = Math.round(amount * 100);
-
     const payload = {
-  merchantOrderId: orderId,
-  amount: amountInPaise,
-  currency: 'INR',
-  redirectUrl: `${process.env.FRONTEND_URL}/payment-success`,
-};
-
+      merchantId: process.env.PHONEPE_MERCHANT_ID,
+      merchantTransactionId: orderId,
+      amount: Math.round(amount * 100),
+      redirectUrl: `${process.env.FRONTEND_URL}/payment-success`,
+      redirectMode: "POST",
+      callbackUrl: `${process.env.BACKEND_URL}/api/webhook/phonepe`,
+      mobileNumber: customer.phone,
+      paymentInstrument: {
+        type: "PAY_PAGE"
+      }
+    };
 
     const response = await axios.post(
-      'https://api.phonepe.com/apis/hermes/pg/v1/initiate',
+      "https://api.phonepe.com/apis/hermes/pg/v1/initiate",
       payload,
       {
         headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'X-Client-Version': PHONEPE_CLIENT_VERSION,
-          'Content-Type': 'application/json',
-        },
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+          "X-Client-Version": PHONEPE_CLIENT_VERSION
+        }
       }
     );
 
-    logger.info('PhonePe order created successfully', {
-      orderId,
-      success: response.data?.success,
-    });
-
     return response.data;
-  } catch (error) {
-    logger.error('PhonePe order creation failed', {
-      error: error.message,
-      response: error.response?.data,
-    });
-    throw {
-      message: 'Failed to create PhonePe order',
-      error: error.message,
-    };
+  } catch (err) {
+    console.log(err.response?.data || err.message);
+    throw new Error("PhonePe failed");
   }
 };
+
 
 /**
  * Check PhonePe transaction status using OAuth
