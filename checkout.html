@@ -25,7 +25,7 @@
 
         .checkout-wrapper {
             width: 100%;
-            max-width: 1000px;
+            max-width: 900px;
         }
 
         .checkout {
@@ -69,10 +69,6 @@
             border-color: #667eea;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
             transform: translateY(-2px);
-        }
-
-        .gateway-btn:active {
-            transform: translateY(0);
         }
 
         .gateway-btn img {
@@ -155,6 +151,137 @@
             font-size: 0.9rem;
         }
 
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal h3 {
+            font-size: 1.8rem;
+            color: #001a4d;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.3rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.8rem;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group input.error {
+            border-color: #d32f2f;
+        }
+
+        .form-error {
+            display: block;
+            color: #d32f2f;
+            font-size: 0.8rem;
+            margin-top: 0.4rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            padding: 0.9rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            color: #333;
+            border-radius: 0.8rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .btn-pay {
+            flex: 1;
+            padding: 0.9rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 0.8rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-pay:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-pay:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .checkout {
@@ -171,6 +298,10 @@
                 padding: 1.5rem;
                 gap: 1rem;
             }
+
+            .modal {
+                width: 95%;
+            }
         }
     </style>
 </head>
@@ -182,19 +313,19 @@
         <div class="checkout-left">
             <h2>Select Payment Method</h2>
             <div class="gateway-buttons">
-                <button class="gateway-btn" onclick="initiatePayment('razorpay')">
+                <button class="gateway-btn" onclick="selectGateway('razorpay')">
                     <img src="https://cdn.builder.io/api/v1/image/assets%2F54f73cbdda5d4fe2a9f22d6014626e18%2F1cbc1f23d71a40f9b35a1ebedb0f99ee?format=webp&width=200" alt="Razorpay">
                     <span class="gateway-name">Razorpay</span>
                     <i class="fas fa-arrow-right gateway-icon"></i>
                 </button>
 
-                <button class="gateway-btn" onclick="initiatePayment('phonepe')">
+                <button class="gateway-btn" onclick="selectGateway('phonepe')">
                     <img src="https://cdn.builder.io/api/v1/image/assets%2F54f73cbdda5d4fe2a9f22d6014626e18%2F7e99265aac174b67b3b925208ca4937b?format=webp&width=200" alt="PhonePe">
                     <span class="gateway-name">PhonePe</span>
                     <i class="fas fa-arrow-right gateway-icon"></i>
                 </button>
 
-                <button class="gateway-btn" onclick="initiatePayment('cashfree')">
+                <button class="gateway-btn" onclick="selectGateway('cashfree')">
                     <img src="https://cdn.builder.io/api/v1/image/assets%2Fa8305d2e4e7542a5ba3e92e7f3385d81%2F2150e92314a74762ba8bb36c694ac724?format=webp&width=200" alt="Cashfree">
                     <span class="gateway-name">Cashfree</span>
                     <i class="fas fa-arrow-right gateway-icon"></i>
@@ -227,6 +358,37 @@
     </div>
 </div>
 
+<!-- Quick Payment Modal -->
+<div class="modal-overlay" id="paymentModal">
+    <div class="modal">
+        <h3>Enter Your Details</h3>
+        <form id="quickPaymentForm" onsubmit="handlePaymentSubmit(event)">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="modalName" placeholder="Enter your name" required>
+                <span class="form-error" id="modalNameError"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="modalEmail" placeholder="Enter your email" required>
+                <span class="form-error" id="modalEmailError"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="modalPhone" placeholder="10-digit phone number" maxlength="10" required>
+                <span class="form-error" id="modalPhoneError"></span>
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="btn-pay" id="submitPayBtn">Proceed to Payment</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     // API Configuration
@@ -238,6 +400,7 @@
         return 'https://shivam-codessite.onrender.com';
     })();
 
+    let selectedGateway = null;
     let currentCourse = null;
 
     // Initialize
@@ -275,21 +438,74 @@
         document.getElementById('summaryTotal').textContent = course.price;
     }
 
-    // Initiate payment - direct to gateway
-    async function initiatePayment(gateway) {
-        if (!currentCourse) {
-            alert('Course data not loaded. Please refresh.');
-            return;
+    // Gateway selection
+    function selectGateway(gateway) {
+        selectedGateway = gateway;
+        document.getElementById('paymentModal').classList.add('active');
+    }
+
+    // Close modal
+    function closeModal() {
+        document.getElementById('paymentModal').classList.remove('active');
+        selectedGateway = null;
+    }
+
+    // Validate inputs
+    function validateForm() {
+        const name = document.getElementById('modalName').value.trim();
+        const email = document.getElementById('modalEmail').value.trim();
+        const phone = document.getElementById('modalPhone').value.trim();
+
+        let isValid = true;
+
+        // Name validation
+        if (!name || name.length < 3) {
+            document.getElementById('modalNameError').textContent = 'Name must be at least 3 characters';
+            document.getElementById('modalName').classList.add('error');
+            isValid = false;
+        } else {
+            document.getElementById('modalNameError').textContent = '';
+            document.getElementById('modalName').classList.remove('error');
         }
 
-        // Dummy customer data - form का कोई meaning नहीं
-        const customerData = {
-            name: 'Customer',
-            email: 'customer@example.com',
-            phone: '9000000000'
-        };
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailRegex.test(email)) {
+            document.getElementById('modalEmailError').textContent = 'Please enter a valid email';
+            document.getElementById('modalEmail').classList.add('error');
+            isValid = false;
+        } else {
+            document.getElementById('modalEmailError').textContent = '';
+            document.getElementById('modalEmail').classList.remove('error');
+        }
 
+        // Phone validation
+        const phoneRegex = /^[6-9]\d{9}$/;
+        if (!phone || !phoneRegex.test(phone)) {
+            document.getElementById('modalPhoneError').textContent = 'Enter valid 10-digit phone';
+            document.getElementById('modalPhone').classList.add('error');
+            isValid = false;
+        } else {
+            document.getElementById('modalPhoneError').textContent = '';
+            document.getElementById('modalPhone').classList.remove('error');
+        }
+
+        return isValid;
+    }
+
+    // Handle payment submit
+    async function handlePaymentSubmit(event) {
+        event.preventDefault();
+
+        if (!validateForm()) return;
+
+        const name = document.getElementById('modalName').value.trim();
+        const email = document.getElementById('modalEmail').value.trim();
+        const phone = document.getElementById('modalPhone').value.trim();
         const amount = parseFloat(document.getElementById('summaryTotal').textContent.replace('₹', '').trim());
+
+        document.getElementById('submitPayBtn').disabled = true;
+        document.getElementById('submitPayBtn').textContent = 'Processing...';
 
         try {
             const response = await fetch(`${API_BASE_URL}/api/payment/create-order`, {
@@ -297,8 +513,8 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     amount,
-                    gateway: gateway,
-                    customer: customerData,
+                    gateway: selectedGateway,
+                    customer: { name, email, phone },
                     description: `Payment for ${currentCourse.name}`
                 })
             });
@@ -308,23 +524,25 @@
             if (!data.success) throw new Error(data.error || 'Failed to create order');
 
             // Handle different gateways
-            handleGatewayPayment(gateway, data.order, amount);
+            handleGatewayPayment(data.order, amount);
 
         } catch (error) {
             alert('Payment error: ' + error.message);
+            document.getElementById('submitPayBtn').disabled = false;
+            document.getElementById('submitPayBtn').textContent = 'Proceed to Payment';
         }
     }
 
     // Route to appropriate gateway
-    function handleGatewayPayment(gateway, order, amount) {
-        if (gateway === 'razorpay') {
+    function handleGatewayPayment(order, amount) {
+        if (selectedGateway === 'razorpay') {
             handleRazorpay(order, amount);
-        } else if (gateway === 'phonepe') {
+        } else if (selectedGateway === 'phonepe') {
             localStorage.setItem('phonepe_transaction_id', order.transactionId);
             localStorage.setItem('phonepe_order_id', order.orderId);
             localStorage.setItem('payment_gateway', 'phonepe');
             window.location.href = order.redirectUrl;
-        } else if (gateway === 'cashfree') {
+        } else if (selectedGateway === 'cashfree') {
             localStorage.setItem('cashfree_order_id', order.orderId);
             localStorage.setItem('payment_gateway', 'cashfree');
             window.location.href = order.paymentLink;
@@ -344,6 +562,10 @@
     }
 
     function openRazorpayCheckout(order, amount) {
+        const name = document.getElementById('modalName').value;
+        const email = document.getElementById('modalEmail').value;
+        const phone = document.getElementById('modalPhone').value;
+
         const options = {
             key: order.razorpayKey,
             amount: order.amount,
@@ -352,11 +574,7 @@
             handler: async (response) => {
                 await verifyPayment(order.orderId, response.razorpay_payment_id, response.razorpay_signature);
             },
-            prefill: {
-                name: 'Customer',
-                email: 'customer@example.com',
-                contact: '9000000000'
-            },
+            prefill: { name, email, contact: phone },
             theme: { color: '#667eea' }
         };
 
