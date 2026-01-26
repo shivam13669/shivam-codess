@@ -252,6 +252,60 @@ router.post('/verify-payment', async (req, res) => {
 });
 
 /**
+ * POST /api/payment/phonepe/create
+ * PhonePe-specific payment creation endpoint
+ *
+ * Request body:
+ * {
+ *   "amount": 499,
+ *   "name": "John Doe",
+ *   "email": "john@example.com",
+ *   "phone": "9876543210"
+ * }
+ */
+router.post('/phonepe/create', async (req, res) => {
+  try {
+    const { amount, name, email, phone } = req.body;
+
+    // Validate input
+    const amountValidation = validators.validateAmount(amount);
+    if (!amountValidation.valid) {
+      return res.status(400).json({ error: amountValidation.error });
+    }
+
+    if (!name || !email || !phone) {
+      return res.status(400).json({
+        error: 'Missing required fields: name, email, phone',
+      });
+    }
+
+    logger.info('Creating PhonePe order', { amount, email });
+
+    const order = await phonepe.createPhonePeOrder({
+      amount,
+      currency: 'INR',
+      customer: { name, email, phone },
+      orderId: `order_${Date.now()}`,
+    });
+
+    logger.info('PhonePe order created successfully', { orderId: order.orderId });
+
+    res.status(200).json({
+      success: true,
+      gateway: 'phonepe',
+      order,
+    });
+  } catch (error) {
+    logger.error('Error creating PhonePe order', { error: error.message });
+    res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to create PhonePe order',
+      ...(process.env.NODE_ENV === 'development' && { details: error }),
+    });
+  }
+});
+
+/**
  * GET /api/payment/status/:gateway/:id
  * Get payment status by transaction/order ID
  */
