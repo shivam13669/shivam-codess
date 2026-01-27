@@ -2,14 +2,34 @@ import axios from 'axios';
 import { logger } from '../utils/logger.js';
 
 /**
- * PhonePe OAuth Client API Implementation
- * Uses Client Credentials grant type with form-body authentication
+ * PhonePe v2 API Implementation
+ * Uses OAuth token-based authentication
  */
 
-// Configuration - OAuth Credentials Only
+// Configuration - OAuth Credentials
 const PHONEPE_CLIENT_ID = process.env.PHONEPE_CLIENT_ID;
 const PHONEPE_CLIENT_SECRET = process.env.PHONEPE_CLIENT_SECRET;
 const PHONEPE_CLIENT_VERSION = process.env.PHONEPE_CLIENT_VERSION || '1';
+const NODE_ENV = process.env.NODE_ENV || 'production';
+
+// PhonePe v2 API Base URLs
+const PHONEPE_ENDPOINTS = {
+  production: {
+    oauth: 'https://api.phonepe.com/apis/identity-manager/v1/oauth/token',
+    pay: 'https://api.phonepe.com/apis/pg/checkout/v2/pay',
+    status: 'https://api.phonepe.com/apis/pg/checkout/v2/order'
+  },
+  sandbox: {
+    oauth: 'https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token',
+    pay: 'https://api-preprod.phonepe.com/apis/pg-sandbox/checkout/v2/pay',
+    status: 'https://api-preprod.phonepe.com/apis/pg-sandbox/checkout/v2/order'
+  }
+};
+
+// Get base URL based on environment
+const getApiEndpoints = () => {
+  return NODE_ENV === 'production' ? PHONEPE_ENDPOINTS.production : PHONEPE_ENDPOINTS.sandbox;
+};
 
 // OAuth Token Cache
 let tokenCache = {
@@ -31,7 +51,7 @@ const getAccessToken = async () => {
       return tokenCache.accessToken;
     }
 
-    logger.info('Generating new PhonePe OAuth access token');
+    logger.info('Generating new PhonePe v2 OAuth access token');
 
     // Validate credentials exist
     if (!PHONEPE_CLIENT_ID || !PHONEPE_CLIENT_SECRET) {
@@ -44,18 +64,22 @@ const getAccessToken = async () => {
       throw new Error(error);
     }
 
-    logger.info('PhonePe credentials validated', {
+    const endpoints = getApiEndpoints();
+    logger.info('PhonePe v2 credentials validated', {
       has_client_id: !!PHONEPE_CLIENT_ID,
-      has_client_secret: !!PHONEPE_CLIENT_SECRET
+      has_client_secret: !!PHONEPE_CLIENT_SECRET,
+      environment: NODE_ENV,
+      oauth_endpoint: endpoints.oauth
     });
 
-    // Request new token using form-body (not Basic Auth)
-    logger.info('Requesting PhonePe OAuth token', {
-      endpoint: 'https://api.phonepe.com/apis/identity-manager/v1/oauth/token'
+    // Request new token using form-body (v2 format)
+    logger.info('Requesting PhonePe v2 OAuth token', {
+      endpoint: endpoints.oauth,
+      environment: NODE_ENV
     });
 
     const response = await axios.post(
-      'https://api.phonepe.com/apis/identity-manager/v1/oauth/token',
+      endpoints.oauth,
       new URLSearchParams({
         client_id: PHONEPE_CLIENT_ID,
         client_secret: PHONEPE_CLIENT_SECRET,
@@ -69,29 +93,35 @@ const getAccessToken = async () => {
       }
     );
 
-    logger.info('PhonePe OAuth token response received', {
+    logger.info('PhonePe v2 OAuth token response received', {
       status: response.status,
       hasAccessToken: !!response.data?.access_token,
-      expiresIn: response.data?.expires_in
+      expiresAt: response.data?.expires_at
     });
 
-    const { access_token, expires_in } = response.data;
+    const { access_token, expires_at } = response.data;
 
     if (!access_token) {
       logger.error('No access token in PhonePe response', { response: response.data });
       throw new Error('No access token in response');
     }
 
-    // Cache token with expiry (subtract 60 seconds for safety margin)
-    const expiryTime = (expires_in - 60) * 1000;
+    // Calculate expiry time (expires_at is usually a timestamp in milliseconds)
+    let expiryTime = expires_at;
+    if (expires_at < 9999999999) {
+      // If it's in seconds, convert to milliseconds
+      expiryTime = expires_at * 1000;
+    }
+    // Subtract 60 seconds for safety margin
+    expiryTime = expiryTime - 60000;
+
     tokenCache = {
       accessToken: access_token,
-      expiresAt: Date.now() + expiryTime,
+      expiresAt: expiryTime,
     };
 
-    logger.info('PhonePe OAuth token generated successfully', {
-      expiresIn: expires_in,
-      cachedUntil: new Date(Date.now() + expiryTime).toISOString()
+    logger.info('PhonePe v2 OAuth token generated successfully', {
+      expiresAt: new Date(expiryTime).toISOString()
     });
 
     return access_token;
@@ -107,25 +137,25 @@ const getAccessToken = async () => {
       }
     };
 
-    logger.error('Failed to generate PhonePe OAuth token', JSON.stringify(errorDetails, null, 2));
+    logger.error('Failed to generate PhonePe v2 OAuth token', JSON.stringify(errorDetails, null, 2));
 
-    throw new Error(`PhonePe OAuth Error: ${errorMessage} (Status: ${error.response?.status || 'Unknown'}). Response: ${JSON.stringify(error.response?.data)}`);
+    throw new Error(`PhonePe v2 OAuth Error: ${errorMessage} (Status: ${error.response?.status || 'Unknown'})`);
   }
 };
 
 /**
- * Create PhonePe order using OAuth Client API
- * Minimal payload as per PhonePe OAuth spec
+ * Create PhonePe order using v2 Checkout API
  * @param {object} params - { amount, customer, orderId }
  * @returns {Promise<object>} PhonePe response with redirect URL
  */
 export const createPhonePeOrder = async (params) => {
   try {
-    const { amount, orderId } = params;
+    const { amount, orderId, customer, description } = params;
 
-    logger.info('Creating PhonePe order', {
+    logger.info('Creating PhonePe v2 order', {
       amount,
       orderId,
+      customer: customer?.email,
     });
 
     // Get valid access token
@@ -134,39 +164,43 @@ export const createPhonePeOrder = async (params) => {
     // Amount in paise
     const amountInPaise = Math.round(amount * 100);
 
-    // Minimal payload as per PhonePe OAuth specification
+    // PhonePe v2 payload format
     const redirectUrl = `${process.env.FRONTEND_URL}/payment-success`;
     const payload = {
       merchantOrderId: orderId,
       amount: amountInPaise,
       currency: 'INR',
       redirectUrl: redirectUrl,
+      message: description || 'Payment for course',
+      paymentFlow: {
+        type: 'PG_CHECKOUT'
+      }
     };
 
-    logger.info('PhonePe API request details', {
-      endpoint: 'https://api.phonepe.com/apis/hermes/pg/v1/pay',
+    const endpoints = getApiEndpoints();
+    logger.info('PhonePe v2 API request details', {
+      endpoint: endpoints.pay,
       method: 'POST',
-      payload: payload,
-      redirectUrl: redirectUrl,
-      clientVersion: PHONEPE_CLIENT_VERSION
+      environment: NODE_ENV,
+      payload: payload
     });
 
-    // Make API request with Bearer token
+    // Make API request with O-Bearer token (PhonePe v2 format)
     const response = await axios.post(
-      'https://api.phonepe.com/apis/hermes/pg/v1/pay',
+      endpoints.pay,
       payload,
       {
         headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'X-Client-Version': PHONEPE_CLIENT_VERSION,
           'Content-Type': 'application/json',
+          'Authorization': `O-Bearer ${accessToken}`,
         },
       }
     );
 
-    logger.info('PhonePe order created successfully', {
+    logger.info('PhonePe v2 order created successfully', {
       orderId,
       success: response.data?.success,
+      redirectUrl: response.data?.redirectUrl
     });
 
     // Return PhonePe response directly
@@ -180,45 +214,45 @@ export const createPhonePeOrder = async (params) => {
       config: {
         url: error.config?.url,
         method: error.config?.method,
-        data: error.config?.data
       }
     };
 
-    logger.error('PhonePe order creation failed', JSON.stringify(errorDetails, null, 2));
+    logger.error('PhonePe v2 order creation failed', JSON.stringify(errorDetails, null, 2));
 
-    const fullError = `PhonePe Pay API Error: ${errorMessage} (Status: ${error.response?.status || 'Unknown'}). Details: ${JSON.stringify(error.response?.data)}`;
-    throw new Error(fullError);
+    throw new Error(`PhonePe v2 API Error: ${errorMessage} (Status: ${error.response?.status || 'Unknown'})`);
   }
 };
 
 /**
- * Check PhonePe transaction status using OAuth
- * Simplified to accept only orderId
+ * Check PhonePe transaction status using v2 API
  * @param {string} orderId - Merchant's order ID
  * @returns {Promise<object>} PhonePe transaction status
  */
 export const checkPhonePeTransactionStatus = async (orderId) => {
   try {
-    logger.info('Checking PhonePe transaction status', { orderId });
+    logger.info('Checking PhonePe v2 transaction status', { orderId });
 
     // Get valid access token
     const accessToken = await getAccessToken();
 
-    // Make API request with Bearer token
+    const endpoints = getApiEndpoints();
+    const statusUrl = `${endpoints.status}/${orderId}/status`;
+
+    // Make API request with O-Bearer token (v2 format)
     const response = await axios.get(
-      `https://api.phonepe.com/apis/hermes/pg/v1/status/${orderId}`,
+      statusUrl,
       {
         headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'X-Client-Version': PHONEPE_CLIENT_VERSION,
           'Content-Type': 'application/json',
+          'Authorization': `O-Bearer ${accessToken}`,
         },
       }
     );
 
-    logger.info('PhonePe transaction status retrieved', {
+    logger.info('PhonePe v2 transaction status retrieved', {
       orderId,
       success: response.data?.success,
+      state: response.data?.state,
     });
 
     // Return PhonePe response directly
@@ -229,14 +263,9 @@ export const checkPhonePeTransactionStatus = async (orderId) => {
       message: error.message,
       status: error.response?.status,
       data: error.response?.data,
-      headers: error.response?.headers,
     };
-    logger.error('PhonePe transaction status check failed', JSON.stringify(errorDetails, null, 2));
-    throw {
-      message: 'Failed to check PhonePe transaction status',
-      error: error.message,
-      details: errorDetails,
-    };
+    logger.error('PhonePe v2 transaction status check failed', JSON.stringify(errorDetails, null, 2));
+    throw new Error(`Failed to check PhonePe transaction status: ${error.message}`);
   }
 };
 
